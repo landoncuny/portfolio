@@ -96,8 +96,8 @@ export default function ContentCreationPage() {
               <VideoCard
                 embedUrl="https://www.tiktok.com/embed/v2/7596116701188590861"
                 platform="tiktok"
-                views="7.1M views"
-                likes="691K likes"
+                views="8.8M views"
+                likes="850K likes"
               />
             </FadeInView>
             <FadeInView delay={0.2}>
