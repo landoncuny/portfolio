@@ -20,20 +20,20 @@ export default function Home() {
           />
         </div>
 
-        {/* Text Container - Responsive positioning */}
-        <div className="absolute z-10 left-6 sm:left-12 md:left-20 lg:left-[320px] bottom-20 sm:bottom-32 md:bottom-40 lg:bottom-[205px]">
+        {/* Text Container - Percentage-based positioning */}
+        <div className="absolute z-10 left-[20%] bottom-[30%]">
           <FadeIn delay={0.1}>
-            <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-cursive text-gray-900">
+            <span className="block text-[clamp(2.5rem,5vw,4.5rem)] font-cursive text-gray-900">
               Landon
             </span>
           </FadeIn>
           <FadeIn delay={0.12}>
-            <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-cursive text-gray-900 ml-4 sm:ml-6 md:ml-8 lg:ml-10">
+            <span className="block text-[clamp(2.5rem,5vw,4.5rem)] font-cursive text-gray-900 ml-[0.5em]">
               Cuny
             </span>
           </FadeIn>
           <FadeIn delay={0.15}>
-            <p className="text-xs sm:text-sm text-gray-800 font-body tracking-wide mt-1">
+            <p className="text-[clamp(0.7rem,1.2vw,0.875rem)] text-gray-800 font-body tracking-wide mt-1">
               Content Creator · Social Media Director · Student
             </p>
           </FadeIn>
