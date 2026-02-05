@@ -23,17 +23,17 @@ export default function Home() {
         {/* Text Container - Percentage-based positioning */}
         <div className="absolute z-10 left-[20%] bottom-[30%]">
           <FadeIn delay={0.1}>
-            <span className="block text-[clamp(2.5rem,5vw,4.5rem)] font-cursive text-gray-900">
+            <span className="block text-[clamp(2.5rem,5vw,4.5rem)] font-cursive text-gray-900 leading-[0.9]">
               Landon
             </span>
           </FadeIn>
           <FadeIn delay={0.12}>
-            <span className="block text-[clamp(2.5rem,5vw,4.5rem)] font-cursive text-gray-900 ml-10">
+            <span className="block text-[clamp(2.5rem,5vw,4.5rem)] font-cursive text-gray-900 ml-10 leading-[0.9]">
               Cuny
             </span>
           </FadeIn>
           <FadeIn delay={0.15}>
-            <p className="text-[clamp(0.7rem,1.2vw,0.875rem)] text-gray-800 font-body tracking-wide mt-1">
+            <p className="text-[clamp(0.7rem,1.2vw,0.875rem)] text-gray-800 font-body tracking-wide mt-2">
               Content Creator · Social Media Director · Student
             </p>
           </FadeIn>
