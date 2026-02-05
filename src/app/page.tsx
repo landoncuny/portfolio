@@ -28,7 +28,7 @@ export default function Home() {
             </span>
           </FadeIn>
           <FadeIn delay={0.12}>
-            <span className="block text-[clamp(2.5rem,5vw,4.5rem)] font-cursive text-gray-900 ml-[0.5em]">
+            <span className="block text-[clamp(2.5rem,5vw,4.5rem)] font-cursive text-gray-900 ml-10">
               Cuny
             </span>
           </FadeIn>
