@@ -23,7 +23,6 @@ const notoSerifDisplay = Noto_Serif_Display({
   display: "swap",
   variable: "--font-noto-serif",
   weight: ["400", "500", "600", "700"],
-  stretch: "extra-condensed",
 });
 
 const yesevaOne = Yeseva_One({
