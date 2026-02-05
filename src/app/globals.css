@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+/* Custom CSS Variables */
+:root {
+  --background: #ffffff;
+  --background-soft: #fafafa;
+  --foreground: #1a1a1a;
+  --accent: #3b82f6;
+  --accent-light: #60a5fa;
+  --accent-soft: #93c5fd;
+  --accent-bg: #eff6ff;
+  --muted: #818181;
+  --border: #e5e5e5;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  /* Font families */
+  --font-serif: var(--font-playfair), Georgia, serif;
+  --font-body: var(--font-dm-sans), system-ui, sans-serif;
+  --font-noto-serif: var(--font-noto-serif), Georgia, serif;
+}
+
+/* Base Styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.7;
+}
+
+/* Typography */
+h1, h2, h3 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  color: var(--foreground);
+}
+
+h4, h5, h6 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* Italic serif for special accent text */
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-serif-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.font-display {
+  font-family: var(--font-noto-serif), Georgia, serif;
+  font-stretch: extra-condensed;
+}
+
+.font-cursive {
+  font-family: var(--font-cursive), cursive;
+}
+
+.font-nunito {
+  font-family: var(--font-nunito), system-ui, sans-serif;
+}
+
+/* Focus styles for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Selection */
+::selection {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+/* Accent text color */
+.text-accent {
+  color: var(--accent);
+}
+
+/* Simple transitions */
+a, button {
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--accent-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-soft);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* Photo placeholder hover effect */
+.photo-placeholder {
+  position: relative;
+  overflow: hidden;
+}
+
+.photo-placeholder::after {
+  content: "Add Photo";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(54, 98, 81, 0.9);
+  color: white;
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.photo-placeholder:hover::after {
+  opacity: 1;
+}

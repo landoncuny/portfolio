@@ -1,0 +1,16 @@
+{
+  "name": "Landon Cuny - Portfolio",
+  "short_name": "Landon Cuny",
+  "description": "Marketing student at San Diego State University with 25,000+ followers and 130M+ views.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#171717",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
+}
