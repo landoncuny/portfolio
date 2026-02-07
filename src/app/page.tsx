@@ -33,7 +33,7 @@ export default function Home() {
             </span>
           </FadeIn>
           <FadeIn delay={0.15}>
-            <p className="text-[clamp(0.7rem,1.2vw,0.875rem)] text-gray-800 font-body tracking-wide mt-2 ml-4">
+            <p className="text-[clamp(0.7rem,1.2vw,0.875rem)] text-gray-800 font-body tracking-wide mt-2 -ml-4">
               Content Creator · Social Media Director · Student
             </p>
           </FadeIn>
