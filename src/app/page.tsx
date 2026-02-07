@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <>
       {/* Hero - Full Width Background */}
-      <section className="relative min-h-[70vh]">
+      <section className="relative min-h-[85vh]">
         {/* Background Image */}
         <div className="absolute inset-0">
           <Image
