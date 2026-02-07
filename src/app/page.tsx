@@ -16,12 +16,12 @@ export default function Home() {
             alt="Landon Cuny"
             fill
             priority
-            className="object-cover"
+            className="object-cover object-top"
           />
         </div>
 
         {/* Text Container - Percentage-based positioning */}
-        <div className="absolute z-10 left-[20%] bottom-[30%]">
+        <div className="absolute z-10 left-[10%] bottom-[30%]">
           <FadeIn delay={0.1}>
             <span className="block text-[clamp(2.5rem,5vw,4.5rem)] font-cursive text-gray-900 leading-[0.9]">
               Landon
