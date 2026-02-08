@@ -22,7 +22,7 @@ export default function WHITEducationPage() {
             label="WHIT Hero Photo"
             className="w-full h-full rounded-none"
             objectFit="contain"
-            scale={0.85}
+            scale={0.7}
             priority
           />
           {/* Light transparent overlay */}
