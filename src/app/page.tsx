@@ -16,6 +16,8 @@ export default function Home() {
             alt="Landon Cuny"
             fill
             priority
+            quality={100}
+            sizes="100vw"
             className="object-cover object-bottom"
           />
         </div>
