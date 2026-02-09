@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <>
       {/* Hero - Full Width Background */}
-      <section className="relative min-h-[60vh]">
+      <section className="relative w-screen -ml-[calc((100vw-100%)/2)] h-[calc(100vh-4rem)] mt-16">
         {/* Background Image */}
         <div className="absolute inset-0">
           <Image
@@ -16,12 +16,12 @@ export default function Home() {
             alt="Landon Cuny"
             fill
             priority
-            className="object-contain object-top"
+            className="object-cover object-bottom"
           />
         </div>
 
         {/* Text Container - Percentage-based positioning */}
-        <div className="absolute z-10 left-[10%] bottom-[15%]">
+        <div className="absolute z-10 left-[10%] top-1/2 -translate-y-1/2">
           <FadeIn delay={0.1}>
             <span className="block text-[clamp(2.5rem,5vw,4.5rem)] font-cursive text-gray-900 leading-[0.9]">
               Landon
