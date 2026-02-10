@@ -29,16 +29,17 @@ export default function Home() {
             </FadeIn>
           </div>
 
-          {/* Circular Photo on Right */}
+          {/* Photo on Right */}
           <FadeIn delay={0.2}>
-            <div className="relative w-[280px] h-[280px] md:w-[350px] md:h-[350px] lg:w-[400px] lg:h-[400px] rounded-full overflow-hidden border-4 border-gray-100 shadow-xl flex-shrink-0">
+            <div className="relative flex-shrink-0 rounded-2xl overflow-hidden shadow-xl">
               <Image
                 src="/images/hero-photo.jpg"
                 alt="Landon Cuny"
-                fill
+                width={1242}
+                height={740}
                 priority
                 quality={100}
-                className="object-cover object-center"
+                className="w-[320px] md:w-[400px] lg:w-[500px] h-auto"
               />
             </div>
           </FadeIn>
