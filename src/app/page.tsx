@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <>
       {/* Hero - Full Width Background */}
-      <section className="relative w-screen -ml-[calc((100vw-100%)/2)] h-[calc(100vh-4rem)] mt-16">
+      <section className="relative w-screen -ml-[calc((100vw-100%)/2)] h-[60vw] max-h-[calc(100vh-4rem)] mt-16">
         {/* Background Image */}
         <div className="absolute inset-0">
           <Image
@@ -17,6 +17,7 @@ export default function Home() {
             fill
             priority
             quality={100}
+            unoptimized
             sizes="100vw"
             className="object-cover object-bottom"
           />
