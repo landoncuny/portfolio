@@ -7,38 +7,40 @@ import { siteConfig, certifications } from "@/content/site-content";
 export default function Home() {
   return (
     <>
-      {/* Hero - Full Width Background */}
-      <section className="relative w-screen -ml-[calc((100vw-100%)/2)] h-[60vw] max-h-[calc(100vh-4rem)] mt-16">
-        {/* Background Image */}
-        <div className="absolute inset-0">
-          <Image
-            src="/images/hero-photo.jpg"
-            alt="Landon Cuny"
-            fill
-            priority
-            quality={100}
-            unoptimized
-            sizes="100vw"
-            className="object-cover object-bottom"
-          />
-        </div>
+      {/* Hero - Side by Side Layout */}
+      <section className="mt-16 py-16 px-8 md:px-16 lg:px-24 bg-white">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12">
+          {/* Text on Left */}
+          <div className="flex-1">
+            <FadeIn delay={0.1}>
+              <span className="block text-[clamp(4rem,10vw,8rem)] font-cursive text-gray-900 leading-[0.9]">
+                Landon
+              </span>
+            </FadeIn>
+            <FadeIn delay={0.12}>
+              <span className="block text-[clamp(4rem,10vw,8rem)] font-cursive text-gray-900 md:ml-12 leading-[0.9]">
+                Cuny
+              </span>
+            </FadeIn>
+            <FadeIn delay={0.15}>
+              <p className="text-[clamp(0.875rem,2vw,1.25rem)] text-gray-600 font-body tracking-wide mt-4">
+                Content Creator · Social Media Director · Student
+              </p>
+            </FadeIn>
+          </div>
 
-        {/* Text Container - Percentage-based positioning */}
-        <div className="absolute z-10 left-[10%] top-1/2 -translate-y-1/2">
-          <FadeIn delay={0.1}>
-            <span className="block text-[clamp(2.5rem,5vw,4.5rem)] font-cursive text-gray-900 leading-[0.9]">
-              Landon
-            </span>
-          </FadeIn>
-          <FadeIn delay={0.12}>
-            <span className="block text-[clamp(2.5rem,5vw,4.5rem)] font-cursive text-gray-900 ml-10 leading-[0.9]">
-              Cuny
-            </span>
-          </FadeIn>
-          <FadeIn delay={0.15}>
-            <p className="text-[clamp(0.7rem,1.2vw,0.875rem)] text-gray-800 font-body tracking-wide mt-2 -ml-4">
-              Content Creator · Social Media Director · Student
-            </p>
+          {/* Circular Photo on Right */}
+          <FadeIn delay={0.2}>
+            <div className="relative w-[280px] h-[280px] md:w-[350px] md:h-[350px] lg:w-[400px] lg:h-[400px] rounded-full overflow-hidden border-4 border-gray-100 shadow-xl flex-shrink-0">
+              <Image
+                src="/images/hero-photo.jpg"
+                alt="Landon Cuny"
+                fill
+                priority
+                quality={100}
+                className="object-cover object-center"
+              />
+            </div>
           </FadeIn>
         </div>
       </section>
