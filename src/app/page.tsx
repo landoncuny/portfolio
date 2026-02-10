@@ -35,8 +35,8 @@ export default function Home() {
               <Image
                 src="/images/hero-photo.jpg"
                 alt="Landon Cuny"
-                width={1242}
-                height={740}
+                width={6240}
+                height={4160}
                 priority
                 quality={100}
                 className="w-[320px] md:w-[400px] lg:w-[500px] h-auto"
