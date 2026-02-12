@@ -1,0 +1,11 @@
+{
+  "buildCommand": "",
+  "outputDirectory": "site",
+  "framework": null,
+  "rewrites": [
+    { "source": "/content-creation", "destination": "/pages/content-creation.html" },
+    { "source": "/whit-education", "destination": "/pages/whit-education.html" },
+    { "source": "/brand-partnerships", "destination": "/pages/brand-partnerships.html" },
+    { "source": "/campus", "destination": "/pages/campus.html" }
+  ]
+}
