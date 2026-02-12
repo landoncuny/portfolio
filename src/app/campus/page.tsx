@@ -1,341 +1,981 @@
-import { FadeIn, FadeInView } from "@/components/motion";
-import { PhotoPlaceholder } from "@/components/ui/photo-placeholder";
-import { organizations } from "@/content/site-content";
-import { Metadata } from "next";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Campus Activities",
-  description: "SDSU campus involvement including Alpha Kappa Psi, Excel/SQL tutoring, Student Disability Services, and more.",
-};
+import { useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
 
 export default function CampusPage() {
+  useEffect(() => {
+    // Mobile nav toggle
+    const navToggle = document.querySelector(".nav-toggle");
+    const navLinks = document.querySelector(".nav-links");
+
+    if (navToggle && navLinks) {
+      navToggle.addEventListener("click", () => {
+        navToggle.classList.toggle("active");
+        navLinks.classList.toggle("active");
+      });
+    }
+
+    // Scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -50px 0px",
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll(".fade-in").forEach((el) => {
+      observer.observe(el);
+    });
+
+    return () => {
+      observer.disconnect();
+      if (navToggle) {
+        navToggle.removeEventListener("click", () => {});
+      }
+    };
+  }, []);
+
   return (
     <>
-      {/* Hero - Centered with Photo Background */}
-      <section className="relative min-h-[60vh] flex items-center justify-center bg-[#fce4ec]">
-        {/* Background Photo Placeholder */}
-        <div className="absolute inset-0">
-          <PhotoPlaceholder
-            src="/images/campus-hero.jpg"
-            alt="Campus Activities"
-            aspect="wide"
-            label="Campus Hero Photo"
-            className="w-full h-full rounded-none"
-            priority
-          />
-          {/* Light transparent overlay */}
-          <div className="absolute inset-0 bg-white/50" />
-        </div>
+      <style jsx>{`
+        /* ========================================
+           CAMPUS - COLLEGIATE EDITORIAL
+           Academic meets modern design
+           ======================================== */
 
-        {/* Centered Text */}
-        <div className="relative z-10 text-center px-6">
-          <FadeIn delay={0.1}>
-            <h1 className="text-5xl sm:text-6xl md:text-7xl font-cursive font-bold text-gray-900">
-              Campus Activities
+        .campus-hero {
+          min-height: 100vh;
+          background: linear-gradient(135deg, #7C2D12 0%, #A6192E 50%, #7C2D12 100%);
+          position: relative;
+          display: flex;
+          align-items: center;
+          overflow: hidden;
+        }
+
+        .campus-hero::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background:
+            radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+            radial-gradient(ellipse at 70% 80%, rgba(0,0,0,0.2) 0%, transparent 50%);
+        }
+
+        .campus-hero::after {
+          content: 'SDSU';
+          font-family: var(--font-display);
+          font-size: 35vw;
+          position: absolute;
+          bottom: -10%;
+          right: -5%;
+          color: rgba(255,255,255,0.03);
+          font-weight: 400;
+          line-height: 1;
+          pointer-events: none;
+        }
+
+        .campus-hero-content {
+          position: relative;
+          z-index: 2;
+          width: 100%;
+          max-width: 1400px;
+          margin: 0 auto;
+          padding: 8rem 6rem 4rem;
+          display: grid;
+          grid-template-columns: 1.2fr 1fr;
+          gap: 6rem;
+          align-items: center;
+        }
+
+        .campus-hero-text {
+          color: white;
+        }
+
+        .hero-top-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 2.5rem;
+          opacity: 0;
+          animation: fadeSlideUp 0.6s ease 0.2s forwards;
+        }
+
+        .hero-back-link {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          color: rgba(255,255,255,0.5);
+          font-size: 0.85rem;
+          font-weight: 500;
+          transition: color 0.3s ease;
+        }
+
+        .hero-back-link:hover {
+          color: white;
+        }
+
+        .hero-back-link svg {
+          width: 16px;
+          height: 16px;
+        }
+
+        .campus-label {
+          display: inline-block;
+          font-size: 0.7rem;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.12em;
+          color: rgba(255,255,255,0.5);
+          padding: 0.4rem 0.8rem;
+          border: 1px solid rgba(255,255,255,0.15);
+          border-radius: 4px;
+        }
+
+        .campus-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: rgba(255,255,255,0.1);
+          border: 1px solid rgba(255,255,255,0.2);
+          padding: 0.5rem 1rem;
+          border-radius: 100px;
+          font-size: 0.75rem;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
+          color: white;
+          margin-bottom: 2rem;
+          opacity: 0;
+          animation: fadeSlideUp 0.6s ease 0.2s forwards;
+        }
+
+        .campus-hero-title {
+          font-family: var(--font-display);
+          font-size: clamp(4rem, 8vw, 7rem);
+          line-height: 0.9;
+          margin-bottom: 1.5rem;
+          opacity: 0;
+          animation: fadeSlideUp 0.8s ease 0.3s forwards;
+        }
+
+        .campus-hero-title span {
+          display: block;
+          font-style: italic;
+          color: rgba(255,255,255,0.7);
+        }
+
+        .campus-hero-subtitle {
+          font-size: 1.25rem;
+          color: rgba(255,255,255,0.6);
+          line-height: 1.7;
+          max-width: 500px;
+          opacity: 0;
+          animation: fadeSlideUp 0.6s ease 0.4s forwards;
+        }
+
+        .campus-hero-meta {
+          display: flex;
+          gap: 3rem;
+          margin-top: 3rem;
+          padding-top: 2rem;
+          border-top: 1px solid rgba(255,255,255,0.1);
+          opacity: 0;
+          animation: fadeSlideUp 0.6s ease 0.5s forwards;
+        }
+
+        .campus-meta-item {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .campus-meta-label {
+          font-size: 0.7rem;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
+          color: rgba(255,255,255,0.4);
+          margin-bottom: 0.25rem;
+        }
+
+        .campus-meta-value {
+          font-weight: 600;
+          color: white;
+          font-size: 1.1rem;
+        }
+
+        .campus-hero-image {
+          position: relative;
+          opacity: 0;
+          animation: fadeSlideUp 1s ease 0.5s forwards;
+        }
+
+        .campus-hero-image img {
+          width: 100%;
+          border-radius: 1.5rem;
+          box-shadow: 0 40px 80px -20px rgba(0,0,0,0.4);
+        }
+
+        .campus-hero-image::before {
+          content: '';
+          position: absolute;
+          inset: -2rem;
+          border: 2px solid rgba(255,255,255,0.1);
+          border-radius: 2rem;
+          z-index: -1;
+        }
+
+        /* ========================================
+           ROLES - FEATURED CARDS
+           ======================================== */
+
+        .roles-section {
+          padding: 8rem 6rem;
+          background: var(--bg-primary);
+        }
+
+        .roles-header {
+          text-align: center;
+          max-width: 700px;
+          margin: 0 auto 5rem;
+        }
+
+        .roles-header h2 {
+          font-family: var(--font-display);
+          font-size: clamp(3rem, 5vw, 4.5rem);
+          margin-bottom: 1rem;
+        }
+
+        .roles-header h2 span {
+          font-style: italic;
+          color: #A6192E;
+        }
+
+        .roles-header p {
+          font-size: 1.1rem;
+          color: var(--text-secondary);
+        }
+
+        .roles-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 2rem;
+          max-width: 1000px;
+          margin: 0 auto;
+        }
+
+        .role-card {
+          background: var(--card-bg);
+          border: 1px solid var(--border);
+          border-radius: 1.5rem;
+          overflow: hidden;
+          transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .role-card:hover {
+          transform: translateY(-8px);
+          box-shadow: 0 25px 50px -15px rgba(0,0,0,0.15);
+          border-color: #A6192E;
+        }
+
+        .role-card-image {
+          height: 200px;
+          overflow: hidden;
+        }
+
+        .role-card-image img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.6s ease;
+        }
+
+        .role-card:hover .role-card-image img {
+          transform: scale(1.08);
+        }
+
+        .role-card-content {
+          padding: 2rem;
+        }
+
+        .role-card-badge {
+          display: inline-block;
+          background: rgba(166, 25, 46, 0.1);
+          color: #A6192E;
+          padding: 0.35rem 0.75rem;
+          border-radius: 100px;
+          font-size: 0.7rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          margin-bottom: 1rem;
+        }
+
+        .role-card-title {
+          font-family: var(--font-display);
+          font-size: 1.5rem;
+          margin-bottom: 0.5rem;
+        }
+
+        .role-card-org {
+          font-size: 0.9rem;
+          color: var(--text-muted);
+          margin-bottom: 1rem;
+        }
+
+        .role-card-desc {
+          font-size: 0.95rem;
+          color: var(--text-secondary);
+          line-height: 1.7;
+          margin-bottom: 1.5rem;
+        }
+
+        .role-card-achievements {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .achievement-item {
+          display: flex;
+          align-items: flex-start;
+          gap: 0.75rem;
+          font-size: 0.9rem;
+          color: var(--text-secondary);
+        }
+
+        .achievement-item::before {
+          content: '';
+          width: 6px;
+          height: 6px;
+          background: #A6192E;
+          border-radius: 50%;
+          flex-shrink: 0;
+          margin-top: 0.5rem;
+        }
+
+        /* ========================================
+           ORGANIZATIONS - INTERLEAVED
+           ======================================== */
+
+        .org-section {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          min-height: 70vh;
+        }
+
+        .org-section.reverse {
+          direction: rtl;
+        }
+
+        .org-section.reverse > * {
+          direction: ltr;
+        }
+
+        .org-visual {
+          position: relative;
+          overflow: hidden;
+          background: var(--bg-secondary);
+        }
+
+        .org-visual img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .org-visual.placeholder {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: linear-gradient(135deg, #E7E5E4 0%, #D6D3D1 100%);
+        }
+
+        .org-visual.placeholder::before {
+          content: 'Photo Coming Soon';
+          font-size: 0.9rem;
+          font-weight: 500;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
+          color: var(--text-muted);
+        }
+
+        .org-content {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding: 4rem 5rem;
+          background: var(--bg-primary);
+        }
+
+        .org-badge {
+          display: inline-block;
+          background: rgba(166, 25, 46, 0.1);
+          color: #A6192E;
+          padding: 0.35rem 0.75rem;
+          border-radius: 100px;
+          font-size: 0.7rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          margin-bottom: 1rem;
+          width: fit-content;
+        }
+
+        .org-title {
+          font-family: var(--font-display);
+          font-size: clamp(2.5rem, 4vw, 3.5rem);
+          line-height: 1.1;
+          margin-bottom: 0.75rem;
+        }
+
+        .org-role {
+          font-weight: 600;
+          color: #A6192E;
+          margin-bottom: 1.5rem;
+        }
+
+        .org-desc {
+          font-size: 1.05rem;
+          color: var(--text-secondary);
+          line-height: 1.8;
+          margin-bottom: 2rem;
+        }
+
+        .org-achievements {
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+          padding-top: 1.5rem;
+          border-top: 1px solid var(--border);
+        }
+
+        /* ========================================
+           COURSEWORK - GRID
+           ======================================== */
+
+        .coursework-section {
+          padding: 6rem;
+          background: var(--bg-secondary);
+        }
+
+        .coursework-header {
+          text-align: center;
+          margin-bottom: 4rem;
+        }
+
+        .coursework-header h2 {
+          font-family: var(--font-display);
+          font-size: clamp(2.5rem, 5vw, 4rem);
+        }
+
+        .coursework-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 1rem;
+          max-width: 1000px;
+          margin: 0 auto;
+        }
+
+        .course-card {
+          background: var(--card-bg);
+          border: 1px solid var(--border);
+          border-radius: 1rem;
+          padding: 1.25rem 1.5rem;
+          transition: all 0.3s ease;
+        }
+
+        .course-card:hover {
+          border-color: #A6192E;
+          transform: translateY(-3px);
+        }
+
+        .course-code {
+          font-weight: 700;
+          color: #A6192E;
+          font-size: 0.8rem;
+          margin-bottom: 0.25rem;
+        }
+
+        .course-name {
+          font-size: 0.9rem;
+          color: var(--text-primary);
+        }
+
+        /* ========================================
+           WORK EXPERIENCE
+           ======================================== */
+
+        .work-section {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          min-height: 60vh;
+          background: var(--bg-dark);
+          margin-bottom: 0;
+        }
+
+        .work-visual {
+          position: relative;
+          overflow: hidden;
+        }
+
+        .work-visual img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .work-content {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding: 4rem 5rem;
+          color: white;
+        }
+
+        .work-badge {
+          display: inline-block;
+          background: rgba(255,255,255,0.1);
+          color: white;
+          padding: 0.35rem 0.75rem;
+          border-radius: 100px;
+          font-size: 0.7rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          margin-bottom: 1rem;
+          width: fit-content;
+        }
+
+        .work-title {
+          font-family: var(--font-display);
+          font-size: clamp(2.5rem, 4vw, 3.5rem);
+          line-height: 1.1;
+          margin-bottom: 0.75rem;
+        }
+
+        .work-role {
+          font-weight: 600;
+          color: var(--accent-soft);
+          margin-bottom: 1.5rem;
+        }
+
+        .work-desc {
+          font-size: 1.05rem;
+          color: rgba(255,255,255,0.6);
+          line-height: 1.8;
+          margin-bottom: 2rem;
+        }
+
+        .work-achievements {
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+        }
+
+        .work-achievement {
+          display: flex;
+          align-items: flex-start;
+          gap: 0.75rem;
+          font-size: 0.95rem;
+          color: rgba(255,255,255,0.7);
+        }
+
+        .work-achievement::before {
+          content: '';
+          width: 6px;
+          height: 6px;
+          background: var(--accent);
+          border-radius: 50%;
+          flex-shrink: 0;
+          margin-top: 0.5rem;
+        }
+
+        /* ========================================
+           GALLERY
+           ======================================== */
+
+        .gallery-section {
+          padding: 6rem;
+          background: var(--bg-primary);
+        }
+
+        .gallery-header {
+          text-align: center;
+          margin-bottom: 4rem;
+        }
+
+        .gallery-header h2 {
+          font-family: var(--font-display);
+          font-size: clamp(2.5rem, 5vw, 4rem);
+        }
+
+        .gallery-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          grid-template-rows: repeat(2, 220px);
+          gap: 1.5rem;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+
+        .gallery-item {
+          border-radius: 1.5rem;
+          overflow: hidden;
+          position: relative;
+          transition: all 0.4s ease;
+        }
+
+        .gallery-item:hover {
+          transform: scale(1.02);
+        }
+
+        .gallery-item:hover img {
+          transform: scale(1.1);
+        }
+
+        .gallery-item:nth-child(1) {
+          grid-column: span 2;
+          grid-row: span 2;
+        }
+
+        .gallery-item img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.6s ease;
+        }
+
+        /* ========================================
+           ANIMATIONS
+           ======================================== */
+
+        @keyframes fadeSlideUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        /* ========================================
+           RESPONSIVE
+           ======================================== */
+
+        @media (max-width: 1024px) {
+          .campus-hero-content {
+            grid-template-columns: 1fr;
+            padding: 8rem 2rem 4rem;
+            gap: 3rem;
+          }
+
+          .campus-hero-image {
+            order: -1;
+            max-width: 400px;
+            margin: 0 auto;
+          }
+
+          .roles-section,
+          .coursework-section,
+          .gallery-section {
+            padding: 4rem 2rem;
+          }
+
+          .roles-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .org-section,
+          .work-section {
+            grid-template-columns: 1fr;
+          }
+
+          .org-section.reverse {
+            direction: ltr;
+          }
+
+          .org-visual,
+          .work-visual {
+            min-height: 300px;
+          }
+
+          .org-content,
+          .work-content {
+            padding: 3rem 2rem;
+          }
+
+          .coursework-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+
+          .gallery-grid {
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto;
+          }
+
+          .gallery-item:nth-child(1) {
+            grid-column: span 1;
+            grid-row: span 1;
+          }
+
+          .gallery-item {
+            height: 200px;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .campus-hero-meta {
+            flex-direction: column;
+            gap: 1rem;
+          }
+
+          .coursework-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .gallery-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+      `}</style>
+
+      {/* Navigation */}
+      <nav>
+        <Link href="/" className="nav-logo">Landon</Link>
+        <div className="nav-links">
+          <Link href="/content-creation">Content</Link>
+          <Link href="/whit-education">WHIT</Link>
+          <Link href="/brand-partnerships">Brands</Link>
+          <Link href="/campus" className="active">Campus</Link>
+          <Link href="/#about">About</Link>
+          <Link href="/#contact" className="nav-cta">Let&apos;s Talk</Link>
+        </div>
+        <div className="nav-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="campus-hero">
+        <div className="campus-hero-content">
+          <div className="campus-hero-text">
+            <div className="hero-top-row">
+              <Link href="/#experience" className="hero-back-link">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                Back to Work
+              </Link>
+              <span className="campus-label">San Diego State University</span>
+            </div>
+
+            <h1 className="campus-hero-title">
+              Campus
+              <span>Activities</span>
             </h1>
-          </FadeIn>
-          <FadeIn delay={0.15}>
-            <p className="text-sm md:text-base text-gray-800 font-semibold tracking-wide mt-4">
-              2024-2027 (Expected)
+
+            <p className="campus-hero-subtitle">
+              Active involvement through leadership roles, tutoring, and campus organizations. Building skills that translate beyond the classroom.
             </p>
-          </FadeIn>
+
+            <div className="campus-hero-meta">
+              <div className="campus-meta-item">
+                <span className="campus-meta-label">University</span>
+                <span className="campus-meta-value">San Diego State</span>
+              </div>
+              <div className="campus-meta-item">
+                <span className="campus-meta-label">Major</span>
+                <span className="campus-meta-value">Marketing</span>
+              </div>
+              <div className="campus-meta-item">
+                <span className="campus-meta-label">Timeline</span>
+                <span className="campus-meta-value">2024 - 2027</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="campus-hero-image">
+            <Image src="/images/campus-hero.jpg" alt="SDSU Campus" width={600} height={400} />
+          </div>
         </div>
       </section>
 
-      {/* Student Disability Services - Text Left, Photo Right */}
-      <section className="py-12 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-10 items-start">
-            <div className="flex flex-col">
-              <FadeInView>
-                <h2 className="text-2xl md:text-3xl font-serif text-gray-900 mb-6">
-                  Student Disability Services
-                </h2>
-              </FadeInView>
-              <FadeInView delay={0.1}>
-                <div className="bg-[#fce4ec] rounded-2xl p-6 border border-[#f8bbd9]">
-                  <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-2 mb-3">
-                    <div>
-                      <h3 className="text-2xl font-semibold text-gray-900">Student Disability Services Assistant</h3>
-                      <p className="text-[#a6192e] text-lg">San Diego State University</p>
-                    </div>
-                    <p className="text-gray-500 text-base">August 2025 – Present</p>
-                  </div>
-                  <p className="text-gray-600 text-xl leading-relaxed mb-3">
-                    Supporting students with disabilities to enhance their campus experience and ensure equal access to education.
-                  </p>
-                  <ul className="space-y-2">
-                    <li className="flex items-start gap-3">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#a6192e] mt-2.5 shrink-0" />
-                      <span className="text-gray-600 text-lg">Provided transportation support daily for 100+ students with disabilities</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#a6192e] mt-2.5 shrink-0" />
-                      <span className="text-gray-600 text-lg">Collaborated with SDSU staff to improve daily learning experiences</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#a6192e] mt-2.5 shrink-0" />
-                      <span className="text-gray-600 text-lg">Ensured timely and reliable service for students across campus</span>
-                    </li>
-                  </ul>
-                </div>
-              </FadeInView>
+      {/* Primary Roles */}
+      <section className="roles-section">
+        <div className="roles-header">
+          <h2>Campus <span>Roles</span></h2>
+          <p>Making an impact through service and education on campus.</p>
+        </div>
+
+        <div className="roles-grid">
+          <a href="https://sds.sdsu.edu/" target="_blank" rel="noopener" className="role-card" style={{ textDecoration: "none", color: "inherit" }}>
+            <div className="role-card-image">
+              <Image src="/images/campus-1.jpg" alt="Student Disability Services" width={500} height={200} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
             </div>
-            <div className="space-y-5">
-              <FadeInView delay={0.1}>
-                <PhotoPlaceholder
-                  src="/images/campus-1.jpg"
-                  alt="Student Disability Services"
-                  aspect="wide"
-                  label="Campus Photo 1"
-                  className="rounded-2xl"
-                />
-              </FadeInView>
-              <FadeInView delay={0.15}>
-                <a
-                  href="https://sds.sdsu.edu/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block hover:opacity-90 transition-opacity"
-                >
-                  <PhotoPlaceholder
-                    src="/images/campus-2.jpg"
-                    alt="Student Disability Services"
-                    aspect="wide"
-                    label="Campus Photo 2"
-                    className="rounded-2xl"
-                    objectFit="contain"
-                  />
-                </a>
-              </FadeInView>
+            <div className="role-card-content">
+              <span className="role-card-badge">Aug 2025 - Present</span>
+              <h3 className="role-card-title">Student Disability Services</h3>
+              <p className="role-card-org">Assistant - San Diego State University</p>
+              <p className="role-card-desc">Supporting students with disabilities to enhance their campus experience and ensure equal access to education.</p>
+              <div className="role-card-achievements">
+                <span className="achievement-item">Provided transportation support for 100+ students</span>
+                <span className="achievement-item">Collaborated with SDSU staff on learning experiences</span>
+                <span className="achievement-item">Ensured reliable service across campus</span>
+              </div>
+            </div>
+          </a>
+
+          <div className="role-card">
+            <div className="role-card-image">
+              <Image src="/images/excel-tutor.jpg" alt="Excel & SQL Tutoring" width={500} height={200} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+            </div>
+            <div className="role-card-content">
+              <span className="role-card-badge">2024 - Present</span>
+              <h3 className="role-card-title">Excel &amp; SQL Tutor</h3>
+              <p className="role-card-org">Microsoft Excel &amp; SQL Tutor - SDSU</p>
+              <p className="role-card-desc">Helping students master data analysis tools for marketing, finance, and operations coursework.</p>
+              <div className="role-card-achievements">
+                <span className="achievement-item">Assisted 25+ students in learning tools efficiently</span>
+                <span className="achievement-item">Guided data analysis across disciplines</span>
+                <span className="achievement-item">Simplified complex data concepts</span>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Excel & SQL Tutor - Photos Left, Text Right */}
-      <section className="py-12 bg-[#fce4ec]">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-10 items-stretch">
-            <FadeInView delay={0.1} className="flex flex-col gap-6">
-              {/* Top row - logos */}
-              <div className="grid grid-cols-2 gap-6">
-                {/* Excel */}
-                <div className="flex items-center justify-center p-6">
-                  <svg className="w-28 h-28" viewBox="0 0 96 96" fill="none">
-                    <path d="M59.5 14H82.5C84.433 14 86 15.567 86 17.5V78.5C86 80.433 84.433 82 82.5 82H59.5V14Z" fill="#21A366"/>
-                    <path d="M59.5 14H36V82H59.5V14Z" fill="#107C41"/>
-                    <path d="M36 14H13.5C11.567 14 10 15.567 10 17.5V78.5C10 80.433 11.567 82 13.5 82H36V14Z" fill="#185C37"/>
-                    <path d="M69 26H77V34H69V26ZM69 38H77V46H69V38ZM69 50H77V58H69V50ZM69 62H77V70H69V62Z" fill="#33C481"/>
-                    <path d="M19 26H27V34H19V26ZM19 38H27V46H19V38ZM19 50H27V58H19V50ZM19 62H27V70H19V62Z" fill="#107C41"/>
-                    <text x="48" y="55" textAnchor="middle" fill="white" fontSize="24" fontWeight="bold">X</text>
-                  </svg>
-                </div>
-                {/* PostgreSQL */}
-                <div className="flex items-center justify-center p-6">
-                  <svg className="w-28 h-28" viewBox="0 0 128 128" fill="#336791">
-                    <path d="M93.809 92.112c.785-6.533.55-7.492 5.416-6.433l1.235.108c3.742.17 8.637-.602 11.513-1.938 6.191-2.873 9.861-7.668 3.758-6.409-13.924 2.873-14.881-1.842-14.881-1.842 14.703-21.815 20.849-49.508 15.543-56.287-14.47-18.489-39.517-9.746-39.936-9.52l-.134.025c-2.751-.571-5.83-.912-9.289-.968-6.301-.104-11.082 1.652-14.535 4.401 0 0-44.683-18.409-42.604 23.151.442 8.841 12.672 66.898 27.26 49.362 5.332-6.412 10.484-11.834 10.484-11.834 2.558 1.699 5.622 2.567 8.834 2.255l.249-.212c-.078.796-.044 1.575.099 2.497-3.757 4.199-2.653 4.936-10.166 6.482-7.602 1.566-3.136 4.355-.221 5.084 3.535.884 11.712 2.136 17.238-5.598l-.22.882c1.474 1.182 1.375 8.166 1.583 13.18.208 5.015.353 9.741 1.023 12.514.67 2.772 1.474 5.878 5.021 7.522 3.108 1.441 8.179 2.116 11.177.573 4.556-2.341 3.475-11.525 3.989-22.066z"/>
-                  </svg>
-                </div>
-              </div>
-              {/* Pivot Table Graphic */}
-              <div className="bg-white rounded-2xl p-4 border border-gray-200">
-                <div className="text-xs text-gray-500 mb-2 font-medium">Excel Pivot Table</div>
-                <div className="overflow-hidden rounded-lg border border-gray-300">
-                  {/* Header row */}
-                  <div className="grid grid-cols-4 bg-[#217346] text-white text-xs font-semibold">
-                    <div className="p-2 border-r border-green-600">Category</div>
-                    <div className="p-2 border-r border-green-600">Q1</div>
-                    <div className="p-2 border-r border-green-600">Q2</div>
-                    <div className="p-2">Total</div>
-                  </div>
-                  {/* Data rows */}
-                  <div className="grid grid-cols-4 text-xs bg-gray-50 border-b border-gray-200">
-                    <div className="p-2 border-r border-gray-200 font-medium">Marketing</div>
-                    <div className="p-2 border-r border-gray-200">$12,400</div>
-                    <div className="p-2 border-r border-gray-200">$15,200</div>
-                    <div className="p-2 font-semibold">$27,600</div>
-                  </div>
-                  <div className="grid grid-cols-4 text-xs bg-white border-b border-gray-200">
-                    <div className="p-2 border-r border-gray-200 font-medium">Sales</div>
-                    <div className="p-2 border-r border-gray-200">$24,800</div>
-                    <div className="p-2 border-r border-gray-200">$31,500</div>
-                    <div className="p-2 font-semibold">$56,300</div>
-                  </div>
-                  <div className="grid grid-cols-4 text-xs bg-gray-50">
-                    <div className="p-2 border-r border-gray-200 font-bold">Grand Total</div>
-                    <div className="p-2 border-r border-gray-200 font-bold">$37,200</div>
-                    <div className="p-2 border-r border-gray-200 font-bold">$46,700</div>
-                    <div className="p-2 font-bold text-[#217346]">$83,900</div>
-                  </div>
-                </div>
-              </div>
-            </FadeInView>
-            <div className="flex flex-col">
-              <FadeInView>
-                <h2 className="text-2xl md:text-3xl font-serif text-gray-900 mb-6">
-                  Excel & SQL Tutor
-                </h2>
-              </FadeInView>
-              <FadeInView delay={0.1}>
-                <div className="bg-white rounded-2xl p-6 border border-gray-200">
-                  <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-2 mb-3">
-                    <div>
-                      <h3 className="text-2xl font-semibold text-gray-900">Microsoft Excel and SQL Tutor</h3>
-                      <p className="text-[#a6192e] text-lg">San Diego State University</p>
-                    </div>
-                    <p className="text-gray-500 text-base">2024 – Present</p>
-                  </div>
-                  <p className="text-gray-600 text-xl leading-relaxed mb-3">
-                    Helping students master data analysis tools for marketing, finance, and operations coursework.
-                  </p>
-                  <ul className="space-y-2">
-                    <li className="flex items-start gap-3">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#a6192e] mt-2.5 shrink-0" />
-                      <span className="text-gray-600 text-lg">Assisted 25+ students in learning Excel and SQL efficiently</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#a6192e] mt-2.5 shrink-0" />
-                      <span className="text-gray-600 text-lg">Guided students in applying data analysis to marketing, finance, and operations</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#a6192e] mt-2.5 shrink-0" />
-                      <span className="text-gray-600 text-lg">Created simplified explanations for complex data concepts</span>
-                    </li>
-                  </ul>
-                </div>
-              </FadeInView>
-            </div>
+      {/* Alpha Kappa Psi */}
+      <section className="org-section">
+        <div className="org-visual">
+          <Image src="/images/akpsi.jpg" alt="Alpha Kappa Psi" width={800} height={600} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+        </div>
+        <div className="org-content">
+          <span className="org-badge">Professional Business Fraternity</span>
+          <h2 className="org-title">Alpha Kappa Psi</h2>
+          <p className="org-role">Active Member - 2024 - Present</p>
+          <p className="org-desc">
+            Contributing to the professional development of fellow students through leadership, networking, and hands-on business experience.
+          </p>
+          <div className="org-achievements">
+            <span className="achievement-item">Led 45+ members on projects and presentations</span>
+            <span className="achievement-item">Completed 10+ mock interviews with members and alumni</span>
           </div>
         </div>
       </section>
 
-      {/* Organizations */}
-      <section className="py-12 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <FadeInView>
-            <h2 className="text-2xl md:text-3xl font-serif text-gray-900 mb-8">
-              Organizations
-            </h2>
-          </FadeInView>
-          <div className="grid md:grid-cols-2 gap-10 items-stretch">
-            {organizations.map((org, index) => (
-              <FadeInView key={org.name} delay={0.1 + index * 0.05} className="flex">
-                <div className="bg-[#fce4ec] rounded-2xl p-6 border border-[#f8bbd9] flex flex-col flex-1">
-                  <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-2 mb-4">
-                    <div>
-                      <h3 className="text-xl font-semibold text-gray-900">{org.name}</h3>
-                      <p className="text-[#a6192e]">{org.role}</p>
-                      {org.type && <p className="text-sm text-gray-500">{org.type}</p>}
-                    </div>
-                    <p className="text-gray-500 text-sm">{org.period}</p>
-                  </div>
-                  {org.highlights && (
-                    <ul className="space-y-2">
-                      {org.highlights.map((highlight, i) => (
-                        <li key={i} className="flex items-start gap-3">
-                          <div className="w-1.5 h-1.5 rounded-full bg-[#a6192e] mt-2 shrink-0" />
-                          <span className="text-gray-600">{highlight}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              </FadeInView>
-            ))}
+      {/* The Look Magazine */}
+      <section className="org-section reverse">
+        <div className="org-visual">
+          <Image src="/images/look-magazine.jpg" alt="The Look Fashion Magazine" width={800} height={600} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+        </div>
+        <div className="org-content">
+          <span className="org-badge">SDSU Publication</span>
+          <h2 className="org-title">The Look Fashion Magazine</h2>
+          <p className="org-role">Styling Coordinator - 2025 - Present</p>
+          <p className="org-desc">
+            Contributing to editorial content and fashion features for SDSU&apos;s premier fashion publication. Bringing my content creation experience to the print medium.
+          </p>
+          <div className="org-achievements">
+            <span className="achievement-item">Coordinating editorial shoots and fashion features</span>
+            <span className="achievement-item">Collaborating with photographers and creative teams</span>
           </div>
         </div>
       </section>
 
-      {/* Relevant Coursework */}
-      <section className="py-12 bg-[#fce4ec]">
-        <div className="max-w-6xl mx-auto px-6">
-          <FadeInView>
-            <h2 className="text-2xl md:text-3xl font-serif text-gray-900 mb-8">
-              Relevant Coursework
-            </h2>
-          </FadeInView>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {[
-              "B A 370: Marketing",
-              "B A 360: Intro Operations & Supply Chain Management",
-              "MIS 301: Statistic Analysis for Business",
-              "B A 350: Management & Organization Behavior",
-              "ACCTG 202: Managerial Accounting",
-              "ACCTG 201: Financial Accounting",
-              "MATH 120: Calculus for Business Analysis",
-              "MIS 180: Principles Info Systems",
-            ].map((course, index) => (
-              <FadeInView key={course} delay={0.05 + index * 0.03}>
-                <div className="bg-white rounded-xl p-4 border border-gray-200 text-center">
-                  <span className="text-gray-700 font-medium">{course}</span>
-                </div>
-              </FadeInView>
-            ))}
+      {/* Coursework */}
+      <section className="coursework-section">
+        <div className="coursework-header">
+          <h2>Relevant Coursework</h2>
+        </div>
+
+        <div className="coursework-grid">
+          <div className="course-card">
+            <span className="course-code">BA 370</span>
+            <span className="course-name">Marketing</span>
+          </div>
+          <div className="course-card">
+            <span className="course-code">BA 360</span>
+            <span className="course-name">Operations &amp; Supply Chain</span>
+          </div>
+          <div className="course-card">
+            <span className="course-code">MIS 301</span>
+            <span className="course-name">Statistical Analysis</span>
+          </div>
+          <div className="course-card">
+            <span className="course-code">BA 350</span>
+            <span className="course-name">Management &amp; Org Behavior</span>
+          </div>
+          <div className="course-card">
+            <span className="course-code">ACCTG 202</span>
+            <span className="course-name">Managerial Accounting</span>
+          </div>
+          <div className="course-card">
+            <span className="course-code">ACCTG 201</span>
+            <span className="course-name">Financial Accounting</span>
+          </div>
+          <div className="course-card">
+            <span className="course-code">MATH 120</span>
+            <span className="course-name">Calculus for Business</span>
+          </div>
+          <div className="course-card">
+            <span className="course-code">MIS 180</span>
+            <span className="course-name">Information Systems</span>
           </div>
         </div>
       </section>
 
-      {/* Other Work */}
-      <section className="py-12 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <FadeInView>
-            <h2 className="text-2xl md:text-3xl font-serif text-gray-900 mb-6">
-              Other Experience
-            </h2>
-          </FadeInView>
-          <div className="grid md:grid-cols-3 gap-6 items-stretch">
-            <FadeInView delay={0.1}>
-              <PhotoPlaceholder
-                src="/images/campus-5.jpg"
-                alt="In-N-Out work"
-                label="Campus Photo 5"
-                className="rounded-2xl h-full"
-                objectPosition="center 25%"
-              />
-            </FadeInView>
-            <FadeInView delay={0.15}>
-              <div className="bg-white rounded-2xl p-6 border border-gray-200 h-full">
-                <div className="mb-3">
-                  <h3 className="text-xl font-semibold text-gray-900">Restaurant Associate</h3>
-                  <p className="text-[#a6192e]">In-N-Out Burger</p>
-                  <p className="text-gray-500 text-sm">May 2025 – Jan 2026</p>
-                </div>
-                <p className="text-gray-600 leading-relaxed mb-3">
-                  Fast-paced customer service role in food industry.
-                </p>
-                <ul className="space-y-2">
-                  <li className="flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#a6192e] mt-2 shrink-0" />
-                    <span className="text-gray-600 text-sm">Received 3 promotions since May</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#a6192e] mt-2 shrink-0" />
-                    <span className="text-gray-600 text-sm">Delivered exceptional customer service in high-volume environment</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#a6192e] mt-2 shrink-0" />
-                    <span className="text-gray-600 text-sm">Prepared and assembled food to company standards</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#a6192e] mt-2 shrink-0" />
-                    <span className="text-gray-600 text-sm">Took customer orders accurately and completed transactions at the register</span>
-                  </li>
-                </ul>
-              </div>
-            </FadeInView>
-            <FadeInView delay={0.2}>
-              <PhotoPlaceholder
-                src="/images/campus-6.jpg"
-                alt="Work experience"
-                label="Campus Photo 6"
-                className="rounded-2xl h-full"
-              />
-            </FadeInView>
+      {/* Work Experience */}
+      <section className="work-section">
+        <div className="work-visual">
+          <Image src="/images/campus-5.jpg" alt="In-N-Out Burger" width={800} height={600} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+        </div>
+        <div className="work-content">
+          <span className="work-badge">May 2025 - Jan 2026</span>
+          <h2 className="work-title">In-N-Out Burger</h2>
+          <p className="work-role">Restaurant Associate</p>
+          <p className="work-desc">
+            Fast-paced customer service role developing skills in teamwork, communication, and operational excellence.
+          </p>
+          <div className="work-achievements">
+            <span className="work-achievement">Received 3 promotions since May</span>
+            <span className="work-achievement">Delivered exceptional service in high-volume setting</span>
+            <span className="work-achievement">Prepared food to company standards</span>
+            <span className="work-achievement">Managed customer orders and register transactions</span>
           </div>
         </div>
       </section>
 
+      {/* Contact CTA */}
+      <section className="contact">
+        <div className="contact-content">
+          <p className="contact-label">Connect</p>
+          <h2 className="contact-title">Let&apos;s talk</h2>
+          <div className="contact-links" style={{ marginTop: "2rem", paddingTop: 0, borderTop: "none" }}>
+            <a href="mailto:lmcuny30@gmail.com" className="contact-link">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              lmcuny30@gmail.com
+            </a>
+            <a href="https://linkedin.com/in/landon-cuny" target="_blank" rel="noopener" className="contact-link">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              LinkedIn
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer>
+        <p>&copy; 2026 Landon Cuny. All rights reserved.</p>
+      </footer>
     </>
   );
 }

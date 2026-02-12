@@ -1,298 +1,1098 @@
-import { FadeIn, FadeInView } from "@/components/motion";
-import { PhotoPlaceholder } from "@/components/ui/photo-placeholder";
-import { creatorStats } from "@/content/site-content";
-import { Metadata } from "next";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Brand Collaborations",
-  description: "Collaborating with brands like Woody Clothing, Hollister, Pacsun and more to create authentic content that drives engagement and results.",
-};
+import { useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
 
 export default function BrandPartnershipsPage() {
+  useEffect(() => {
+    // Mobile nav toggle
+    const navToggle = document.querySelector(".nav-toggle");
+    const navLinks = document.querySelector(".nav-links");
+
+    const handleToggle = () => {
+      navLinks?.classList.toggle("active");
+      navToggle?.classList.toggle("active");
+    };
+
+    if (navToggle && navLinks) {
+      navToggle.addEventListener("click", handleToggle);
+    }
+
+    // Scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -50px 0px",
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll(".fade-in").forEach((el) => {
+      observer.observe(el);
+    });
+
+    return () => {
+      observer.disconnect();
+      if (navToggle) {
+        navToggle.removeEventListener("click", handleToggle);
+      }
+    };
+  }, []);
+
   return (
     <>
-      {/* Hero - Centered with Photo Background */}
-      <section className="relative min-h-[60vh] flex items-center justify-center bg-[#f0e6d8]">
-        {/* Background Photo Placeholder */}
-        <div className="absolute inset-0">
-          <PhotoPlaceholder
-            src="/images/brand-hero.jpg"
-            alt="Brand Collaborations"
-            aspect="wide"
-            label="Brand Hero Photo"
-            className="w-full h-full rounded-none"
-            priority
-          />
-          {/* Light transparent overlay */}
-          <div className="absolute inset-0 bg-white/50" />
-        </div>
+      <style jsx>{`
+        /* ========================================
+           BRAND PARTNERSHIPS - LUXURY EDITORIAL
+           High-fashion magazine aesthetic
+           ======================================== */
 
-        {/* Centered Text */}
-        <div className="relative z-10 text-center px-6">
-          <FadeIn delay={0.1}>
-            <h1 className="text-5xl sm:text-6xl md:text-7xl font-cursive font-bold text-gray-900">
-              Brand Collaborations
-            </h1>
-          </FadeIn>
-          <FadeIn delay={0.15}>
-            <p className="text-sm md:text-base text-gray-800 font-semibold tracking-wide mt-4">
-              Creating authentic content that drives results
-            </p>
-          </FadeIn>
-        </div>
-      </section>
+        .brand-hero {
+          min-height: 100vh;
+          background: var(--bg-dark);
+          position: relative;
+          display: grid;
+          grid-template-columns: 1fr 1.2fr;
+          overflow: hidden;
+        }
 
-      {/* Featured Partners */}
-      <section className="py-12 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <FadeInView>
-            <h2 className="text-2xl md:text-3xl font-serif text-gray-900 mb-8">
-              Featured Partners
-            </h2>
-          </FadeInView>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              { name: "Kinetic Apps Inc.", url: "https://kineticapps.ai/", position: "center" },
-              { name: "Woody Clothing", url: "https://woodyclothing.com/", position: "center" },
-              { name: "Yordy Jewelry", url: "https://www.yordy.co/", position: "center" },
-              { name: "Hollister", url: "https://www.hollisterco.com/shop/us", position: "center" },
-              { name: "Pacsun", url: "https://www.pacsun.com/", position: "center" },
-              { name: "Silverlake Flea Market", url: "https://www.silverlakeflea.com/", position: "center top" },
-              { name: "Bravest Studios", url: "https://braveststudios.com/", position: "center 45%" },
-              { name: "Prism Clothing", url: "https://prismclothing.bigcartel.com/", position: "center" },
-            ].map((partner, index) => (
-              <FadeInView key={partner.name} delay={0.1 + index * 0.05}>
-                <a
-                  href={partner.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block bg-white rounded-xl overflow-hidden border border-gray-100 hover:border-[#a67c52] transition-colors"
-                >
-                  <PhotoPlaceholder
-                    src={`/images/partner-${index + 1}.jpg`}
-                    alt={partner.name}
-                    aspect="video"
-                    label={`${partner.name} Photo`}
-                    className="rounded-none"
-                    objectPosition={partner.position}
-                  />
-                  <div className="p-3 text-center">
-                    <h3 className="text-xs font-semibold text-gray-900">{partner.name}</h3>
-                  </div>
-                </a>
-              </FadeInView>
-            ))}
+        .brand-hero::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: radial-gradient(ellipse at 70% 50%, rgba(225, 29, 72, 0.1) 0%, transparent 60%);
+        }
+
+        .brand-hero-text {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding: 8rem 4rem 4rem 6rem;
+          color: white;
+          position: relative;
+          z-index: 2;
+        }
+
+        .hero-back-link {
+          position: absolute;
+          top: 6rem;
+          left: 6rem;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          color: rgba(255,255,255,0.5);
+          font-size: 0.85rem;
+          font-weight: 500;
+          transition: color 0.3s ease;
+        }
+
+        .hero-back-link:hover {
+          color: white;
+        }
+
+        .hero-back-link svg {
+          width: 16px;
+          height: 16px;
+        }
+
+        .brand-hero-eyebrow {
+          font-size: 0.7rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.25em;
+          color: var(--accent-soft);
+          margin-bottom: 2rem;
+          opacity: 0;
+          animation: fadeSlideUp 0.6s ease 0.2s forwards;
+        }
+
+        .brand-hero-title {
+          font-family: var(--font-display);
+          font-size: clamp(4rem, 8vw, 7rem);
+          line-height: 0.9;
+          margin-bottom: 2rem;
+          opacity: 0;
+          animation: fadeSlideUp 0.8s ease 0.3s forwards;
+        }
+
+        .brand-hero-title span {
+          display: block;
+          font-style: italic;
+          color: var(--accent);
+        }
+
+        .brand-hero-tagline {
+          font-size: 1.35rem;
+          color: rgba(255,255,255,0.6);
+          line-height: 1.6;
+          max-width: 400px;
+          opacity: 0;
+          animation: fadeSlideUp 0.6s ease 0.4s forwards;
+        }
+
+        .brand-hero-stats {
+          display: flex;
+          gap: 3rem;
+          margin-top: 3rem;
+          padding-top: 2rem;
+          border-top: 1px solid rgba(255,255,255,0.1);
+          opacity: 0;
+          animation: fadeSlideUp 0.6s ease 0.5s forwards;
+        }
+
+        .brand-stat {
+          text-align: left;
+        }
+
+        .brand-stat-value {
+          font-family: var(--font-display);
+          font-size: 2.5rem;
+          line-height: 1;
+          color: white;
+        }
+
+        .brand-stat-label {
+          font-size: 0.75rem;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
+          color: rgba(255,255,255,0.4);
+          margin-top: 0.25rem;
+        }
+
+        .brand-hero-visual {
+          position: relative;
+          overflow: hidden;
+        }
+
+        .brand-hero-visual::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(to right, var(--bg-dark) 0%, transparent 30%);
+          z-index: 1;
+        }
+
+        /* ========================================
+           PARTNERS MARQUEE
+           ======================================== */
+
+        .partners-marquee {
+          background: var(--bg-primary);
+          padding: 4rem 0;
+          overflow: hidden;
+          position: relative;
+        }
+
+        .partners-marquee::before,
+        .partners-marquee::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          width: 200px;
+          z-index: 2;
+        }
+
+        .partners-marquee::before {
+          left: 0;
+          background: linear-gradient(to right, var(--bg-primary), transparent);
+        }
+
+        .partners-marquee::after {
+          right: 0;
+          background: linear-gradient(to left, var(--bg-primary), transparent);
+        }
+
+        .marquee-track {
+          display: flex;
+          gap: 4rem;
+          animation: marquee 30s linear infinite;
+        }
+
+        .marquee-track:hover {
+          animation-play-state: paused;
+        }
+
+        @keyframes marquee {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
+        }
+
+        .partner-logo-item {
+          flex-shrink: 0;
+          width: 120px;
+          height: 80px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          filter: grayscale(100%);
+          opacity: 0.5;
+          transition: all 0.3s ease;
+          position: relative;
+        }
+
+        .partner-logo-item:hover {
+          filter: grayscale(0%);
+          opacity: 1;
+        }
+
+        .partner-logo-item img {
+          max-width: 100%;
+          max-height: 100%;
+          object-fit: contain;
+        }
+
+        .partner-logo-item.has-label {
+          overflow: hidden;
+        }
+
+        .partner-logo-item.has-label::after {
+          content: attr(data-label);
+          position: absolute;
+          bottom: 8px;
+          left: 50%;
+          transform: translateX(-50%);
+          font-size: 0.55rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          color: white;
+          white-space: nowrap;
+          background: rgba(0,0,0,0.7);
+          padding: 0.25rem 0.5rem;
+          border-radius: 3px;
+          backdrop-filter: blur(4px);
+          z-index: 2;
+        }
+
+        /* ========================================
+           FEATURED PARTNERS GRID
+           ======================================== */
+
+        .partners-section {
+          padding: 8rem 6rem;
+          background: var(--bg-secondary);
+        }
+
+        .partners-header {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 4rem;
+          margin-bottom: 5rem;
+          align-items: end;
+        }
+
+        .partners-header h2 {
+          font-family: var(--font-display);
+          font-size: clamp(3rem, 5vw, 4.5rem);
+          line-height: 0.95;
+        }
+
+        .partners-header h2 span {
+          font-style: italic;
+          color: var(--accent);
+        }
+
+        .partners-header p {
+          font-size: 1.1rem;
+          color: var(--text-secondary);
+          line-height: 1.8;
+        }
+
+        .partners-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 1.5rem;
+        }
+
+        .partner-card {
+          background: var(--card-bg);
+          border: 1px solid var(--border);
+          border-radius: 1.5rem;
+          padding: 2rem;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+          text-decoration: none;
+        }
+
+        .partner-card:hover {
+          transform: translateY(-8px);
+          border-color: var(--accent);
+          box-shadow: 0 20px 40px -15px rgba(225, 29, 72, 0.2);
+        }
+
+        .partner-card-logo {
+          width: 100px;
+          height: 100px;
+          border-radius: 1rem;
+          overflow: hidden;
+          margin-bottom: 1.5rem;
+          background: var(--bg-secondary);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .partner-card-logo img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          padding: 0.5rem;
+        }
+
+        .partner-card-name {
+          font-weight: 700;
+          font-size: 1rem;
+          color: var(--text-primary);
+          margin-bottom: 0.5rem;
+        }
+
+        .partner-card-type {
+          font-size: 0.8rem;
+          color: var(--text-muted);
+        }
+
+        /* ========================================
+           PROCESS - HORIZONTAL SCROLL
+           ======================================== */
+
+        .process-section {
+          padding: 8rem 6rem;
+          background: var(--bg-primary);
+        }
+
+        .process-header {
+          text-align: center;
+          max-width: 600px;
+          margin: 0 auto 5rem;
+        }
+
+        .process-header h2 {
+          font-family: var(--font-display);
+          font-size: clamp(2.5rem, 5vw, 4rem);
+          margin-bottom: 1rem;
+        }
+
+        .process-header p {
+          color: var(--text-secondary);
+          font-size: 1.1rem;
+        }
+
+        .process-track {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 2rem;
+          position: relative;
+        }
+
+        .process-track::before {
+          content: '';
+          position: absolute;
+          top: 60px;
+          left: 10%;
+          right: 10%;
+          height: 2px;
+          background: linear-gradient(to right, var(--border), var(--accent), var(--border));
+          z-index: 0;
+        }
+
+        .process-step {
+          background: var(--card-bg);
+          border: 1px solid var(--border);
+          border-radius: 1.5rem;
+          padding: 2.5rem 2rem;
+          text-align: center;
+          position: relative;
+          z-index: 1;
+          transition: all 0.4s ease;
+        }
+
+        .process-step::before {
+          display: none;
+        }
+
+        .process-step:hover {
+          transform: translateY(-6px);
+          border-color: var(--accent);
+        }
+
+        .process-step-number {
+          width: 48px;
+          height: 48px;
+          background: var(--accent);
+          color: white;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: var(--font-display);
+          font-size: 1.25rem;
+          margin: 0 auto 1.5rem;
+        }
+
+        .process-step h3 {
+          font-size: 1.1rem;
+          font-weight: 700;
+          margin-bottom: 0.75rem;
+        }
+
+        .process-step p {
+          font-size: 0.9rem;
+          color: var(--text-secondary);
+          line-height: 1.6;
+        }
+
+        /* ========================================
+           SKILLS INTERLEAVE
+           ======================================== */
+
+        .skills-section {
+          display: grid;
+          grid-template-columns: 0.8fr 1.2fr;
+          min-height: 60vh;
+        }
+
+        .skills-visual {
+          position: relative;
+          overflow: hidden;
+        }
+
+        .skills-content {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding: 4rem 5rem;
+          background: var(--bg-secondary);
+        }
+
+        .skills-label {
+          font-size: 0.7rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.2em;
+          color: var(--accent);
+          margin-bottom: 1rem;
+        }
+
+        .skills-title {
+          font-family: var(--font-display);
+          font-size: clamp(2.5rem, 4vw, 3.5rem);
+          line-height: 1.1;
+          margin-bottom: 2rem;
+        }
+
+        .skills-list {
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
+        }
+
+        .skill-item {
+          display: flex;
+          align-items: flex-start;
+          gap: 1rem;
+        }
+
+        .skill-icon {
+          width: 40px;
+          height: 40px;
+          background: var(--card-bg);
+          border-radius: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          color: var(--accent);
+        }
+
+        .skill-icon svg {
+          width: 20px;
+          height: 20px;
+        }
+
+        .skill-text h4 {
+          font-size: 1rem;
+          font-weight: 600;
+          margin-bottom: 0.25rem;
+        }
+
+        .skill-text p {
+          font-size: 0.9rem;
+          color: var(--text-secondary);
+        }
+
+        /* ========================================
+           TOOLS SECTION
+           ======================================== */
+
+        .tools-section {
+          padding: 6rem 6rem 8rem;
+          background: var(--bg-dark);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .tools-section::before {
+          content: 'TOOLS';
+          font-family: var(--font-display);
+          font-size: 15vw;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          color: rgba(255,255,255,0.02);
+          white-space: nowrap;
+          pointer-events: none;
+        }
+
+        .tools-content {
+          text-align: center;
+          position: relative;
+          z-index: 2;
+        }
+
+        .tools-content h2 {
+          font-family: var(--font-display);
+          font-size: clamp(2.5rem, 5vw, 4rem);
+          color: white;
+          margin-bottom: 3rem;
+        }
+
+        .tools-cloud {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 1rem;
+          max-width: 800px;
+          margin: 0 auto;
+        }
+
+        .tool-tag {
+          background: rgba(255,255,255,0.05);
+          border: 1px solid rgba(255,255,255,0.1);
+          color: white;
+          padding: 0.75rem 1.5rem;
+          border-radius: 100px;
+          font-size: 0.95rem;
+          font-weight: 500;
+          transition: all 0.3s ease;
+        }
+
+        .tool-tag:hover {
+          background: var(--accent);
+          border-color: var(--accent);
+          transform: translateY(-3px);
+        }
+
+        /* Tooltip styles */
+        .tool-tag {
+          position: relative;
+          cursor: default;
+        }
+
+        .tool-tag::after {
+          content: attr(data-tooltip);
+          position: absolute;
+          bottom: calc(100% + 8px);
+          left: 50%;
+          transform: translateX(-50%) translateY(5px);
+          background: rgba(15, 23, 42, 0.95);
+          color: rgba(255,255,255,0.9);
+          padding: 0.5rem 0.75rem;
+          border-radius: 6px;
+          font-size: 0.75rem;
+          font-weight: 400;
+          white-space: nowrap;
+          opacity: 0;
+          visibility: hidden;
+          transition: all 0.2s ease;
+          z-index: 10;
+          border: 1px solid rgba(255,255,255,0.1);
+          max-width: 200px;
+          white-space: normal;
+          text-align: center;
+        }
+
+        .tool-tag:hover::after {
+          opacity: 1;
+          visibility: visible;
+          transform: translateX(-50%) translateY(0);
+        }
+
+        @media (max-width: 768px) {
+          .tool-tag::after {
+            display: none;
+          }
+        }
+
+        /* ========================================
+           GALLERY - MOSAIC
+           ======================================== */
+
+        .gallery-section {
+          padding: 6rem;
+          background: var(--bg-primary);
+        }
+
+        .gallery-header {
+          text-align: center;
+          margin-bottom: 4rem;
+        }
+
+        .gallery-header h2 {
+          font-family: var(--font-display);
+          font-size: clamp(2.5rem, 5vw, 4rem);
+        }
+
+        .gallery-mosaic {
+          display: grid;
+          grid-template-columns: repeat(6, 1fr);
+          grid-template-rows: repeat(2, 250px);
+          gap: 1.5rem;
+          max-width: 1400px;
+          margin: 0 auto;
+        }
+
+        .gallery-item {
+          border-radius: 1.5rem;
+          overflow: hidden;
+          position: relative;
+          transition: all 0.4s ease;
+        }
+
+        .gallery-item:hover {
+          transform: scale(1.02);
+        }
+
+        .gallery-item:hover img {
+          transform: scale(1.1);
+        }
+
+        .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+        .gallery-item:nth-child(2) { grid-column: span 2; }
+        .gallery-item:nth-child(3) { grid-column: span 2; }
+        .gallery-item:nth-child(4) { grid-column: span 2; }
+        .gallery-item:nth-child(5) { grid-column: span 2; }
+
+        .gallery-item img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.6s ease;
+        }
+
+        /* ========================================
+           ANIMATIONS
+           ======================================== */
+
+        @keyframes fadeSlideUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes imageReveal {
+          from { opacity: 0; transform: scale(1.1); }
+          to { opacity: 1; transform: scale(1); }
+        }
+
+        .brand-hero-visual :global(img) {
+          opacity: 0;
+          animation: imageReveal 1.2s ease 0.4s forwards;
+        }
+
+        /* ========================================
+           RESPONSIVE
+           ======================================== */
+
+        @media (max-width: 1024px) {
+          .brand-hero {
+            grid-template-columns: 1fr;
+          }
+
+          .brand-hero-text {
+            padding: 8rem 2rem 4rem;
+            order: 2;
+          }
+
+          .hero-back-link {
+            top: 5rem;
+            left: 2rem;
+          }
+
+          .brand-hero-visual {
+            height: 50vh;
+            order: 1;
+          }
+
+          .brand-hero-visual::after {
+            background: linear-gradient(to top, var(--bg-dark) 0%, transparent 50%);
+          }
+
+          .partners-section,
+          .process-section,
+          .gallery-section {
+            padding: 4rem 2rem;
+          }
+
+          .partners-header,
+          .process-track {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+          }
+
+          .process-track::before {
+            display: none;
+          }
+
+          .partners-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+
+          .skills-section {
+            grid-template-columns: 1fr;
+          }
+
+          .skills-visual {
+            min-height: 250px;
+            max-height: 300px;
+          }
+
+          .skills-content {
+            padding: 3rem 2rem;
+          }
+
+          .gallery-mosaic {
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto;
+          }
+
+          .gallery-item:nth-child(1),
+          .gallery-item:nth-child(2),
+          .gallery-item:nth-child(3),
+          .gallery-item:nth-child(4),
+          .gallery-item:nth-child(5) {
+            grid-column: span 1;
+            grid-row: span 1;
+            height: 250px;
+          }
+
+          .tools-section {
+            padding: 4rem 2rem;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .brand-hero-stats {
+            flex-direction: column;
+            gap: 1.5rem;
+          }
+
+          .partners-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .gallery-mosaic {
+            grid-template-columns: 1fr;
+          }
+        }
+      `}</style>
+
+      {/* Navigation */}
+      <nav>
+        <Link href="/" className="nav-logo">Landon</Link>
+        <div className="nav-links">
+          <Link href="/content-creation">Content</Link>
+          <Link href="/whit-education">WHIT</Link>
+          <Link href="/brand-partnerships" className="active">Brands</Link>
+          <Link href="/campus">Campus</Link>
+          <Link href="/#about">About</Link>
+          <Link href="/#contact" className="nav-cta">Let&apos;s Talk</Link>
+        </div>
+        <div className="nav-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="brand-hero">
+        <div className="brand-hero-text">
+          <Link href="/#experience" className="hero-back-link">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Back to Work
+          </Link>
+
+          <p className="brand-hero-eyebrow">Collaborations</p>
+          <h1 className="brand-hero-title">
+            Brand
+            <span>Partnerships</span>
+          </h1>
+          <p className="brand-hero-tagline">
+            Creating authentic content that drives real results. Trusted by leading fashion, lifestyle, and tech brands.
+          </p>
+
+          <div className="brand-hero-stats">
+            <div className="brand-stat">
+              <div className="brand-stat-value">8+</div>
+              <div className="brand-stat-label">Brand Partners</div>
+            </div>
+            <div className="brand-stat">
+              <div className="brand-stat-value">25K+</div>
+              <div className="brand-stat-label">Followers</div>
+            </div>
+            <div className="brand-stat">
+              <div className="brand-stat-value">130M+</div>
+              <div className="brand-stat-label">Total Views</div>
+            </div>
           </div>
         </div>
-      </section>
 
-      {/* Working with Brands - Text Left, Photo Right */}
-      <section className="py-12 bg-[#f0e6d8]">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-10 items-stretch">
-            <div className="flex flex-col">
-              <FadeInView>
-                <h2 className="text-2xl md:text-3xl font-serif text-gray-900 mb-6">
-                  Working with Brands
-                </h2>
-              </FadeInView>
-              <FadeInView delay={0.1} className="flex-1 flex">
-                <div className="bg-white rounded-2xl p-8 border border-gray-200 flex flex-col justify-center flex-1">
-                  <p className="text-gray-600 text-2xl leading-relaxed mb-6">
-                    With an engaged audience of 25,000+ followers and over 130 million views,
-                    I've had the opportunity to partner with brands that align with my content
-                    and values. My approach focuses on creating authentic content that resonates
-                    with my audience while delivering real value for brand partners.
-                  </p>
-                  <p className="text-gray-600 text-2xl leading-relaxed">
-                    I've developed a professional approach for managing brand collaborations
-                    from initial outreach to final deliverables, ensuring clear communication
-                    and measurable results throughout the entire process.
-                  </p>
-                </div>
-              </FadeInView>
-            </div>
-            <div className="space-y-5">
-              <FadeInView delay={0.1}>
-                <PhotoPlaceholder
-                  src="/images/brand-1.jpg"
-                  alt="Brand collaboration work"
-                  aspect="video"
-                  label="Brand Photo 1"
-                  className="rounded-2xl"
-                  objectPosition="center top"
-                />
-              </FadeInView>
-              <FadeInView delay={0.15}>
-                <PhotoPlaceholder
-                  src="/images/brand-2.jpg"
-                  alt="Brand collaboration work"
-                  aspect="video"
-                  label="Brand Photo 2"
-                  className="rounded-2xl"
-                />
-              </FadeInView>
-            </div>
-          </div>
+        <div className="brand-hero-visual">
+          <Image src="/images/brand-hero.jpg" alt="Brand Partnerships" fill style={{ objectFit: "cover" }} />
         </div>
       </section>
 
-      {/* My Partnership Process - Photos Left, Numbered Steps Right */}
-      <section className="py-12 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-10 items-stretch">
-            <FadeInView delay={0.1} className="flex items-center justify-center h-full">
-              <PhotoPlaceholder
-                src="/images/brand-3.jpg"
-                alt="Partnership process"
-                label="Brand Photo 3"
-                className="w-full h-full"
-                objectFit="contain"
-              />
-            </FadeInView>
-            <div className="flex flex-col">
-              <FadeInView>
-                <h2 className="text-2xl md:text-3xl font-serif text-gray-900 mb-6">
-                  My Partnership Process
-                </h2>
-              </FadeInView>
-              <div className="space-y-4 flex-1">
-                <FadeInView delay={0.1}>
-                  <div className="bg-[#f0e6d8] rounded-2xl p-5 border border-[#d4b896]">
-                    <div className="flex items-center gap-4 mb-2">
-                      <span className="w-8 h-8 rounded-full bg-[#a67c52] text-white flex items-center justify-center text-sm font-medium shrink-0">1</span>
-                      <h3 className="font-semibold text-gray-900 text-lg">Discovery & Alignment</h3>
-                    </div>
-                    <p className="text-gray-600 ml-12 text-base">
-                      Understanding the brand's goals and ensuring authentic alignment with my content.
-                    </p>
-                  </div>
-                </FadeInView>
-                <FadeInView delay={0.15}>
-                  <div className="bg-[#f0e6d8] rounded-2xl p-5 border border-[#d4b896]">
-                    <div className="flex items-center gap-4 mb-2">
-                      <span className="w-8 h-8 rounded-full bg-[#a67c52] text-white flex items-center justify-center text-sm font-medium shrink-0">2</span>
-                      <h3 className="font-semibold text-gray-900 text-lg">Creative Development</h3>
-                    </div>
-                    <p className="text-gray-600 ml-12 text-base">
-                      Developing content that naturally integrate the brand while maintaining authenticity.
-                    </p>
-                  </div>
-                </FadeInView>
-                <FadeInView delay={0.2}>
-                  <div className="bg-[#f0e6d8] rounded-2xl p-5 border border-[#d4b896]">
-                    <div className="flex items-center gap-4 mb-2">
-                      <span className="w-8 h-8 rounded-full bg-[#a67c52] text-white flex items-center justify-center text-sm font-medium shrink-0">3</span>
-                      <h3 className="font-semibold text-gray-900 text-lg">Production & Delivery</h3>
-                    </div>
-                    <p className="text-gray-600 ml-12 text-base">
-                      Producing high-quality content aligned with brand guidelines from script to final edit, communicating with the brand throughout.
-                    </p>
-                  </div>
-                </FadeInView>
-                <FadeInView delay={0.25}>
-                  <div className="bg-[#f0e6d8] rounded-2xl p-5 border border-[#d4b896]">
-                    <div className="flex items-center gap-4 mb-2">
-                      <span className="w-8 h-8 rounded-full bg-[#a67c52] text-white flex items-center justify-center text-sm font-medium shrink-0">4</span>
-                      <h3 className="font-semibold text-gray-900 text-lg">Performance Reporting</h3>
-                    </div>
-                    <p className="text-gray-600 ml-12 text-base">
-                      Providing detailed reports and follow-ups with engagement metrics and insights to ensure the brand is satisfied with the results.
-                    </p>
-                  </div>
-                </FadeInView>
+      {/* Partners Marquee */}
+      <section className="partners-marquee">
+        <div className="marquee-track">
+          <div className="partner-logo-item"><img src="/images/partner-1.jpg" alt="Kinetic Apps" /></div>
+          <div className="partner-logo-item"><img src="/images/partner-2.jpg" alt="Woody Clothing" /></div>
+          <div className="partner-logo-item"><img src="/images/partner-3.jpg" alt="Yordy Jewelry" /></div>
+          <div className="partner-logo-item"><img src="/images/partner-4.jpg" alt="Hollister" /></div>
+          <div className="partner-logo-item"><img src="/images/partner-5.jpg" alt="Pacsun" /></div>
+          <div className="partner-logo-item has-label" data-label="Silverlake Flea"><img src="/images/partner-6.jpg" alt="Silverlake Flea" /></div>
+          <div className="partner-logo-item"><img src="/images/partner-7.jpg" alt="Bravest Studios" /></div>
+          <div className="partner-logo-item"><img src="/images/partner-8.jpg" alt="Prism Clothing" /></div>
+          {/* Duplicate for seamless loop */}
+          <div className="partner-logo-item"><img src="/images/partner-1.jpg" alt="Kinetic Apps" /></div>
+          <div className="partner-logo-item"><img src="/images/partner-2.jpg" alt="Woody Clothing" /></div>
+          <div className="partner-logo-item"><img src="/images/partner-3.jpg" alt="Yordy Jewelry" /></div>
+          <div className="partner-logo-item"><img src="/images/partner-4.jpg" alt="Hollister" /></div>
+          <div className="partner-logo-item"><img src="/images/partner-5.jpg" alt="Pacsun" /></div>
+          <div className="partner-logo-item has-label" data-label="Silverlake Flea"><img src="/images/partner-6.jpg" alt="Silverlake Flea" /></div>
+          <div className="partner-logo-item"><img src="/images/partner-7.jpg" alt="Bravest Studios" /></div>
+          <div className="partner-logo-item"><img src="/images/partner-8.jpg" alt="Prism Clothing" /></div>
+        </div>
+      </section>
+
+      {/* Featured Partners Grid */}
+      <section className="partners-section">
+        <div className="partners-header">
+          <h2>Trusted<br /><span>Partners</span></h2>
+          <p>From fashion labels to tech startups, I&apos;ve collaborated with brands that value authentic storytelling and genuine audience connection.</p>
+        </div>
+
+        <div className="partners-grid">
+          <a href="https://kineticapps.ai" target="_blank" rel="noopener" className="partner-card">
+            <div className="partner-card-logo">
+              <img src="/images/partner-1.jpg" alt="Kinetic Apps Inc." />
+            </div>
+            <span className="partner-card-name">Kinetic Apps Inc.</span>
+            <span className="partner-card-type">Technology</span>
+          </a>
+
+          <a href="https://woodyclothing.com" target="_blank" rel="noopener" className="partner-card">
+            <div className="partner-card-logo">
+              <img src="/images/partner-2.jpg" alt="Woody Clothing" />
+            </div>
+            <span className="partner-card-name">Woody Clothing</span>
+            <span className="partner-card-type">Fashion</span>
+          </a>
+
+          <a href="https://yordy.co" target="_blank" rel="noopener" className="partner-card">
+            <div className="partner-card-logo">
+              <img src="/images/partner-3.jpg" alt="Yordy Jewelry" />
+            </div>
+            <span className="partner-card-name">Yordy Jewelry</span>
+            <span className="partner-card-type">Accessories</span>
+          </a>
+
+          <a href="https://hollisterco.com/shop/us" target="_blank" rel="noopener" className="partner-card">
+            <div className="partner-card-logo">
+              <img src="/images/partner-4.jpg" alt="Hollister" />
+            </div>
+            <span className="partner-card-name">Hollister</span>
+            <span className="partner-card-type">Fashion Retail</span>
+          </a>
+
+          <a href="https://pacsun.com" target="_blank" rel="noopener" className="partner-card">
+            <div className="partner-card-logo">
+              <img src="/images/partner-5.jpg" alt="Pacsun" />
+            </div>
+            <span className="partner-card-name">Pacsun</span>
+            <span className="partner-card-type">Fashion Retail</span>
+          </a>
+
+          <a href="https://silverlakeflea.com" target="_blank" rel="noopener" className="partner-card">
+            <div className="partner-card-logo">
+              <img src="/images/partner-6.jpg" alt="Silverlake Flea Market" />
+            </div>
+            <span className="partner-card-name">Silverlake Flea</span>
+            <span className="partner-card-type">Vintage Market</span>
+          </a>
+
+          <a href="https://braveststudios.com" target="_blank" rel="noopener" className="partner-card">
+            <div className="partner-card-logo">
+              <img src="/images/partner-7.jpg" alt="Bravest Studios" />
+            </div>
+            <span className="partner-card-name">Bravest Studios</span>
+            <span className="partner-card-type">Streetwear</span>
+          </a>
+
+          <a href="https://prismclothing.bigcartel.com" target="_blank" rel="noopener" className="partner-card">
+            <div className="partner-card-logo">
+              <img src="/images/partner-8.jpg" alt="Prism Clothing" />
+            </div>
+            <span className="partner-card-name">Prism Clothing</span>
+            <span className="partner-card-type">Independent Label</span>
+          </a>
+        </div>
+      </section>
+
+      {/* Skills Section */}
+      <section className="skills-section">
+        <div className="skills-visual">
+          <Image src="/images/brand-1.jpg" alt="Brand collaboration work" fill style={{ objectFit: "cover" }} />
+        </div>
+        <div className="skills-content">
+          <p className="skills-label">Expertise</p>
+          <h2 className="skills-title">Skills Developed</h2>
+
+          <div className="skills-list">
+            <div className="skill-item">
+              <div className="skill-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div className="skill-text">
+                <h4>Brand Collaboration</h4>
+                <p>Building lasting partnerships through professional communication</p>
+              </div>
+            </div>
+
+            <div className="skill-item">
+              <div className="skill-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+              </div>
+              <div className="skill-text">
+                <h4>UGC Creation</h4>
+                <p>User-generated content that feels authentic and resonates</p>
+              </div>
+            </div>
+
+            <div className="skill-item">
+              <div className="skill-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              </div>
+              <div className="skill-text">
+                <h4>Contract Negotiation</h4>
+                <p>Developing fair rate structures and clear terms</p>
+              </div>
+            </div>
+
+            <div className="skill-item">
+              <div className="skill-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+              </div>
+              <div className="skill-text">
+                <h4>Authentic Integration</h4>
+                <p>Seamlessly integrating brand messaging naturally</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* What I Learned - Text Left, Photos Right */}
-      <section className="py-12 bg-[#f0e6d8]">
-        <div className="max-w-6xl mx-auto px-6">
-          <FadeInView>
-            <h2 className="text-2xl md:text-3xl font-serif text-gray-900 mb-6">
-              What I Learned
-            </h2>
-          </FadeInView>
-          <div className="grid md:grid-cols-2 gap-10 items-stretch">
-            <div className="grid grid-cols-2 gap-5">
-              <FadeInView delay={0.1} className="flex">
-                <div className="bg-white rounded-2xl p-6 border border-gray-200 flex flex-col flex-1 justify-center">
-                  <h3 className="font-semibold text-gray-900 mb-2 text-xl">Brand Collaboration</h3>
-                  <p className="text-gray-600 text-lg leading-relaxed">Learned how to collaborate with brands through social media marketing and build lasting partnerships.</p>
-                </div>
-              </FadeInView>
-              <FadeInView delay={0.15} className="flex">
-                <div className="bg-white rounded-2xl p-6 border border-gray-200 flex flex-col flex-1 justify-center">
-                  <h3 className="font-semibold text-gray-900 mb-2 text-xl">UGC Creation</h3>
-                  <p className="text-gray-600 text-lg leading-relaxed">Developed skills in creating user-generated content that feels authentic while meeting brand objectives.</p>
-                </div>
-              </FadeInView>
-              <FadeInView delay={0.2} className="flex">
-                <div className="bg-white rounded-2xl p-6 border border-gray-200 flex flex-col flex-1 justify-center">
-                  <h3 className="font-semibold text-gray-900 mb-2 text-xl">Contract Negotiation</h3>
-                  <p className="text-gray-600 text-lg leading-relaxed">Learned to negotiate contracts, agree on deliverables, and develop fair rates for my work.</p>
-                </div>
-              </FadeInView>
-              <FadeInView delay={0.25} className="flex">
-                <div className="bg-white rounded-2xl p-6 border border-gray-200 flex flex-col flex-1 justify-center">
-                  <h3 className="font-semibold text-gray-900 mb-2 text-xl">Authentic Integration</h3>
-                  <p className="text-gray-600 text-lg leading-relaxed">Mastered fitting advertisements into content without oversaturating my personal niche and brand.</p>
-                </div>
-              </FadeInView>
-              <FadeInView delay={0.3} className="flex col-span-2">
-                <div className="bg-white rounded-2xl p-6 border border-gray-200 flex flex-col flex-1 justify-center">
-                  <h3 className="font-semibold text-gray-900 mb-2 text-xl">Professional Communication</h3>
-                  <p className="text-gray-600 text-lg leading-relaxed">Learned how to communicate with brands and conduct personal meetings to discuss deliverables, dates, and other important factors.</p>
-                </div>
-              </FadeInView>
-            </div>
-            <div className="space-y-5">
-              <FadeInView delay={0.1}>
-                <PhotoPlaceholder
-                  src="/images/brand-5.jpg"
-                  alt="What I learned"
-                  aspect="wide"
-                  label="Brand Photo 5"
-                  className="rounded-2xl"
-                />
-              </FadeInView>
-              <FadeInView delay={0.15}>
-                <PhotoPlaceholder
-                  src="/images/brand-6.jpg"
-                  alt="What I learned"
-                  aspect="square"
-                  label="Brand Photo 6"
-                  className="rounded-2xl"
-                  objectPosition="center 15%"
-                />
-              </FadeInView>
-            </div>
+      {/* Process Section */}
+      <section className="process-section">
+        <div className="process-header">
+          <h2>Partnership Process</h2>
+          <p>A proven workflow that delivers results for every collaboration.</p>
+        </div>
+
+        <div className="process-track">
+          <div className="process-step">
+            <div className="process-step-number">1</div>
+            <h3>Discovery &amp; Alignment</h3>
+            <p>Understanding brand goals and ensuring authentic alignment with my audience and content style.</p>
+          </div>
+
+          <div className="process-step">
+            <div className="process-step-number">2</div>
+            <h3>Creative Development</h3>
+            <p>Developing naturally integrated content that maintains authenticity while showcasing the brand.</p>
+          </div>
+
+          <div className="process-step">
+            <div className="process-step-number">3</div>
+            <h3>Production &amp; Delivery</h3>
+            <p>High-quality content from script to final edit with clear brand communication throughout.</p>
+          </div>
+
+          <div className="process-step">
+            <div className="process-step-number">4</div>
+            <h3>Performance Reporting</h3>
+            <p>Detailed reports with engagement metrics and actionable insights for future campaigns.</p>
           </div>
         </div>
       </section>
 
-      {/* Tools */}
-      <section className="py-16 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <FadeInView>
-            <h2 className="text-2xl md:text-3xl font-serif text-gray-900 mb-6 text-center">
-              Tools I Use
-            </h2>
-            <div className="flex flex-wrap gap-3 justify-center">
-              {["BILL AP & AR", "Stripe", "Adobe Premiere Pro", "CapCut", "Canva", "Instagram Insights", "TikTok Analytics"].map((tool) => (
-                <span
-                  key={tool}
-                  className="px-4 py-2 bg-white text-gray-700 rounded-full border border-gray-200"
-                >
-                  {tool}
-                </span>
-              ))}
-            </div>
-          </FadeInView>
+      {/* Tools Section */}
+      <section className="tools-section">
+        <div className="tools-content">
+          <h2>Tools I Use</h2>
+          <div className="tools-cloud">
+            <span className="tool-tag" data-tooltip="Invoice management and payment processing">BILL AP &amp; AR</span>
+            <span className="tool-tag" data-tooltip="Payment processing for brand deals">Stripe</span>
+            <span className="tool-tag" data-tooltip="Professional video editing">Adobe Premiere Pro</span>
+            <span className="tool-tag" data-tooltip="Short-form video editing">CapCut</span>
+            <span className="tool-tag" data-tooltip="Graphics and social media design">Canva</span>
+            <span className="tool-tag" data-tooltip="Performance tracking and audience analytics">Instagram Insights</span>
+            <span className="tool-tag" data-tooltip="Content performance and engagement metrics">TikTok Analytics</span>
+          </div>
         </div>
       </section>
+
+      {/* Contact CTA */}
+      <section className="contact">
+        <div className="contact-content">
+          <p className="contact-label">Partnership Inquiries</p>
+          <h2 className="contact-title">Let&apos;s collaborate</h2>
+          <div className="contact-links" style={{ marginTop: "2rem", paddingTop: 0, borderTop: "none" }}>
+            <a href="mailto:lmcuny30@gmail.com" className="contact-link">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              lmcuny30@gmail.com
+            </a>
+            <a href="https://linkedin.com/in/landon-cuny" target="_blank" rel="noopener" className="contact-link">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              LinkedIn
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer>
+        <p>&copy; 2026 Landon Cuny. All rights reserved.</p>
+      </footer>
     </>
   );
 }

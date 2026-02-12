@@ -1,267 +1,1033 @@
-import { FadeIn, FadeInView } from "@/components/motion";
-import { PhotoPlaceholder } from "@/components/ui/photo-placeholder";
-import Image from "next/image";
-import { Metadata } from "next";
+"use client";
 
-export const metadata: Metadata = {
-  title: "WHIT Education Platform",
-  description: "Director of Social Media Growth at WHIT Education Platform - leading content strategy and social media growth for an education technology company.",
-};
+import { useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
 
 export default function WHITEducationPage() {
+  useEffect(() => {
+    // Mobile nav toggle
+    const navToggle = document.querySelector(".nav-toggle");
+    const navLinks = document.querySelector(".nav-links");
+
+    if (navToggle && navLinks) {
+      const handleToggle = () => {
+        navToggle.classList.toggle("active");
+        navLinks.classList.toggle("active");
+        document.body.classList.toggle("menu-open");
+      };
+
+      navToggle.addEventListener("click", handleToggle);
+
+      // Close menu when clicking a link
+      const links = navLinks.querySelectorAll("a");
+      links.forEach((link) => {
+        link.addEventListener("click", () => {
+          navToggle.classList.remove("active");
+          navLinks.classList.remove("active");
+          document.body.classList.remove("menu-open");
+        });
+      });
+
+      return () => {
+        navToggle.removeEventListener("click", handleToggle);
+      };
+    }
+  }, []);
+
+  useEffect(() => {
+    // Scroll animations
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const elements = document.querySelectorAll(
+      ".section-label, .about-text, .experience-title, .experience-subtitle, .bento-card, .cert-card, .contact-label, .contact-title, .contact-desc, .contact-buttons, .contact-links, .section-title, .stat-card, .feature-card, .gallery-item, .partner-card, .experience-item, .process-step"
+    );
+
+    elements.forEach((el) => observer.observe(el));
+
+    return () => {
+      elements.forEach((el) => observer.unobserve(el));
+    };
+  }, []);
+
   return (
     <>
-      {/* Hero - Centered with Photo Background */}
-      <section className="relative min-h-[60vh] flex items-center justify-center bg-[#f5f5dc]">
-        {/* Background Photo */}
-        <div className="absolute inset-0">
-          <PhotoPlaceholder
-            src="/images/whit-hero.jpg"
-            alt="WHIT Education"
-            aspect="wide"
-            label="WHIT Hero Photo"
-            className="w-full h-full rounded-none"
-            objectFit="contain"
-            scale={0.7}
-            priority
-          />
-          {/* Light transparent overlay */}
-          <div className="absolute inset-0 bg-white/60" />
-        </div>
+      <style jsx>{`
+        /* ========================================
+           WHIT EDUCATION - STARTUP EDITORIAL
+           Premium tech-forward design
+           ======================================== */
 
-        {/* Centered Text */}
-        <div className="relative z-10 text-center px-6">
-          <FadeIn delay={0.1}>
-            <h1 className="text-5xl sm:text-6xl md:text-7xl font-cursive font-bold text-gray-900">
-              WHIT Education
+        .whit-hero {
+          min-height: 100vh;
+          background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%);
+          position: relative;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+        }
+
+        .whit-hero::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background:
+            radial-gradient(ellipse at 20% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+            radial-gradient(ellipse at 80% 50%, rgba(225, 29, 72, 0.1) 0%, transparent 50%);
+        }
+
+        /* Animated grid background */
+        .whit-hero::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background-image:
+            linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+          background-size: 60px 60px;
+          mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+        }
+
+        .whit-hero-content {
+          position: relative;
+          z-index: 2;
+          width: 100%;
+          max-width: 1400px;
+          margin: 0 auto;
+          padding: 8rem 6rem 4rem;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 6rem;
+          align-items: center;
+        }
+
+        .whit-hero-text {
+          color: white;
+        }
+
+        .hero-top-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 2.5rem;
+          opacity: 0;
+          animation: fadeSlideUp 0.6s ease 0.2s forwards;
+        }
+
+        .hero-back-link {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          color: rgba(255,255,255,0.5);
+          font-size: 0.85rem;
+          font-weight: 500;
+          transition: color 0.3s ease;
+        }
+
+        .hero-back-link:hover {
+          color: white;
+        }
+
+        .hero-back-link svg {
+          width: 16px;
+          height: 16px;
+        }
+
+        .whit-label {
+          display: inline-block;
+          font-size: 0.7rem;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.12em;
+          color: rgba(255,255,255,0.5);
+          padding: 0.4rem 0.8rem;
+          border: 1px solid rgba(255,255,255,0.15);
+          border-radius: 4px;
+        }
+
+        .whit-hero-title {
+          font-family: var(--font-display);
+          font-size: clamp(3.5rem, 7vw, 6rem);
+          line-height: 0.95;
+          margin-bottom: 1.5rem;
+          opacity: 0;
+          animation: fadeSlideUp 0.8s ease 0.3s forwards;
+        }
+
+        .whit-hero-title span {
+          display: block;
+          background: linear-gradient(135deg, #6366F1 0%, var(--accent) 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+
+        .whit-hero-role {
+          font-size: 1.25rem;
+          color: rgba(255,255,255,0.7);
+          margin-bottom: 2rem;
+          opacity: 0;
+          animation: fadeSlideUp 0.6s ease 0.4s forwards;
+        }
+
+        .whit-hero-desc {
+          font-size: 1.1rem;
+          color: rgba(255,255,255,0.5);
+          line-height: 1.8;
+          max-width: 500px;
+          opacity: 0;
+          animation: fadeSlideUp 0.6s ease 0.5s forwards;
+        }
+
+        .whit-hero-cta {
+          margin-top: 2.5rem;
+          opacity: 0;
+          animation: fadeSlideUp 0.6s ease 0.6s forwards;
+        }
+
+        .whit-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.75rem;
+          background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%);
+          color: white;
+          padding: 1rem 2rem;
+          border-radius: 100px;
+          font-weight: 600;
+          transition: all 0.3s ease;
+        }
+
+        .whit-btn:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 15px 40px -10px rgba(99, 102, 241, 0.5);
+        }
+
+        .whit-btn svg {
+          width: 18px;
+          height: 18px;
+        }
+
+        /* Hero visual */
+        .whit-hero-visual {
+          position: relative;
+          opacity: 0;
+          animation: fadeSlideUp 1s ease 0.5s forwards;
+        }
+
+        .whit-mockup {
+          position: relative;
+          background: linear-gradient(145deg, #1E293B, #0F172A);
+          border-radius: 1.5rem;
+          padding: 1rem;
+          border: 1px solid rgba(255,255,255,0.1);
+          box-shadow:
+            0 50px 100px -20px rgba(0,0,0,0.5),
+            0 30px 60px -15px rgba(99, 102, 241, 0.2);
+        }
+
+        .whit-mockup img {
+          width: 100%;
+          border-radius: 1rem;
+        }
+
+        .whit-mockup-badge {
+          position: absolute;
+          top: -1rem;
+          right: -1rem;
+          background: linear-gradient(135deg, var(--accent) 0%, #BE123C 100%);
+          color: white;
+          padding: 0.75rem 1.25rem;
+          border-radius: 100px;
+          font-size: 0.8rem;
+          font-weight: 700;
+          box-shadow: 0 10px 30px -10px var(--accent);
+        }
+
+        /* ========================================
+           ROLE DETAILS - SPLIT SECTION
+           ======================================== */
+
+        .role-section {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          min-height: 70vh;
+        }
+
+        .role-image {
+          position: relative;
+          overflow: hidden;
+        }
+
+        .role-image img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .role-image-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(to right, transparent 0%, var(--bg-primary) 100%);
+        }
+
+        .role-content {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding: 4rem 5rem;
+          background: var(--bg-primary);
+        }
+
+        .role-label {
+          font-size: 0.7rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.2em;
+          color: #6366F1;
+          margin-bottom: 1rem;
+        }
+
+        .role-title {
+          font-family: var(--font-display);
+          font-size: clamp(2.5rem, 4vw, 3.5rem);
+          line-height: 1.1;
+          margin-bottom: 1.5rem;
+        }
+
+        .role-desc {
+          font-size: 1.15rem;
+          color: var(--text-secondary);
+          line-height: 1.8;
+          margin-bottom: 2rem;
+        }
+
+        .role-meta {
+          display: flex;
+          gap: 3rem;
+          padding-top: 2rem;
+          border-top: 1px solid var(--border);
+        }
+
+        .role-meta-item {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .role-meta-label {
+          font-size: 0.7rem;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
+          color: var(--text-muted);
+          margin-bottom: 0.25rem;
+        }
+
+        .role-meta-value {
+          font-weight: 600;
+          color: var(--text-primary);
+        }
+
+        /* ========================================
+           LEARNINGS - BENTO GRID
+           ======================================== */
+
+        .learnings-section {
+          padding: 8rem 6rem;
+          background: var(--bg-secondary);
+        }
+
+        .learnings-header {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 4rem;
+          margin-bottom: 4rem;
+          align-items: end;
+        }
+
+        .learnings-header h2 {
+          font-family: var(--font-display);
+          font-size: clamp(3rem, 5vw, 4.5rem);
+          line-height: 0.95;
+        }
+
+        .learnings-header h2 span {
+          font-style: italic;
+          color: #6366F1;
+        }
+
+        .learnings-header p {
+          font-size: 1.1rem;
+          color: var(--text-secondary);
+          line-height: 1.8;
+        }
+
+        .learnings-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          grid-template-rows: repeat(2, 220px);
+          gap: 1.5rem;
+        }
+
+        .learning-card {
+          background: var(--card-bg);
+          border: 1px solid var(--border);
+          border-radius: 1.5rem;
+          padding: 2rem;
+          position: relative;
+          overflow: hidden;
+          transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+          display: flex;
+          flex-direction: column;
+        }
+
+        .learning-card:hover {
+          transform: translateY(-6px);
+          border-color: #6366F1;
+          box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.2);
+        }
+
+        .learning-card:nth-child(1) {
+          grid-column: span 2;
+          grid-row: span 2;
+          background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+          color: white;
+          border-color: transparent;
+        }
+
+        .learning-card:nth-child(1):hover {
+          border-color: #6366F1;
+        }
+
+        .learning-card:nth-child(1) .learning-icon {
+          background: rgba(99, 102, 241, 0.2);
+          color: #A5B4FC;
+        }
+
+        .learning-card:nth-child(1) .learning-desc {
+          color: rgba(255,255,255,0.6);
+        }
+
+        .learning-card:nth-child(2) { grid-column: span 2; }
+        .learning-card:nth-child(3) { grid-column: span 1; }
+        .learning-card:nth-child(4) { grid-column: span 1; }
+
+        .learning-icon {
+          width: 56px;
+          height: 56px;
+          background: var(--bg-secondary);
+          border-radius: 1rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 1.5rem;
+          color: #6366F1;
+        }
+
+        .learning-icon svg {
+          width: 28px;
+          height: 28px;
+        }
+
+        .learning-title {
+          font-size: 1.25rem;
+          font-weight: 700;
+          margin-bottom: 0.75rem;
+        }
+
+        .learning-desc {
+          font-size: 0.95rem;
+          color: var(--text-secondary);
+          line-height: 1.6;
+          flex: 1;
+        }
+
+        /* ========================================
+           EXPERIENCE - TIMELINE INTERLEAVE
+           ======================================== */
+
+        .experience-section {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          min-height: 70vh;
+        }
+
+        .experience-section.reverse {
+          direction: rtl;
+        }
+
+        .experience-section.reverse > * {
+          direction: ltr;
+        }
+
+        .experience-visual {
+          position: relative;
+          overflow: hidden;
+          background: var(--bg-secondary);
+        }
+
+        .experience-visual img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .experience-content {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding: 4rem 5rem;
+          background: var(--bg-primary);
+        }
+
+        .experience-number {
+          font-family: var(--font-display);
+          font-size: 6rem;
+          line-height: 1;
+          color: #D6D3D1;
+          margin-bottom: 1rem;
+        }
+
+        .experience-label {
+          font-size: 0.7rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.2em;
+          color: #6366F1;
+          margin-bottom: 1rem;
+        }
+
+        .experience-title {
+          font-family: var(--font-display);
+          font-size: clamp(2rem, 3.5vw, 2.75rem);
+          line-height: 1.1;
+          margin-bottom: 1rem;
+        }
+
+        .experience-subtitle {
+          font-weight: 600;
+          color: var(--accent);
+          margin-bottom: 1.5rem;
+        }
+
+        .experience-desc {
+          font-size: 1.05rem;
+          color: var(--text-secondary);
+          line-height: 1.8;
+        }
+
+        /* ========================================
+           TOOLS - FLOATING TAGS
+           ======================================== */
+
+        .tools-section {
+          padding: 6rem 6rem 8rem;
+          background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .tools-section::before {
+          content: 'TOOLS';
+          font-family: var(--font-display);
+          font-size: 15vw;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          color: rgba(255,255,255,0.02);
+          white-space: nowrap;
+          pointer-events: none;
+        }
+
+        .tools-header {
+          text-align: center;
+          color: white;
+          margin-bottom: 4rem;
+          position: relative;
+          z-index: 2;
+        }
+
+        .tools-header h2 {
+          font-family: var(--font-display);
+          font-size: clamp(2.5rem, 5vw, 4rem);
+          margin-bottom: 1rem;
+        }
+
+        .tools-header p {
+          color: rgba(255,255,255,0.5);
+          font-size: 1.1rem;
+        }
+
+        .tools-cloud {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 1rem;
+          max-width: 900px;
+          margin: 0 auto;
+          position: relative;
+          z-index: 2;
+        }
+
+        .tool-tag {
+          background: rgba(255,255,255,0.05);
+          border: 1px solid rgba(255,255,255,0.1);
+          color: white;
+          padding: 0.75rem 1.5rem;
+          border-radius: 100px;
+          font-size: 0.95rem;
+          font-weight: 500;
+          transition: all 0.3s ease;
+          position: relative;
+          cursor: default;
+        }
+
+        .tool-tag:hover {
+          background: rgba(99, 102, 241, 0.2);
+          border-color: #6366F1;
+          transform: translateY(-3px);
+        }
+
+        .tool-tag.featured {
+          background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%);
+          border-color: transparent;
+          font-weight: 600;
+        }
+
+        .tool-tag.featured:hover {
+          box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.5);
+        }
+
+        /* Tooltip styles */
+        .tool-tag::after {
+          content: attr(data-tooltip);
+          position: absolute;
+          bottom: calc(100% + 8px);
+          left: 50%;
+          transform: translateX(-50%) translateY(5px);
+          background: rgba(15, 23, 42, 0.95);
+          color: rgba(255,255,255,0.9);
+          padding: 0.5rem 0.75rem;
+          border-radius: 6px;
+          font-size: 0.75rem;
+          font-weight: 400;
+          white-space: nowrap;
+          opacity: 0;
+          visibility: hidden;
+          transition: all 0.2s ease;
+          z-index: 10;
+          border: 1px solid rgba(255,255,255,0.1);
+          max-width: 200px;
+          white-space: normal;
+          text-align: center;
+        }
+
+        .tool-tag:hover::after {
+          opacity: 1;
+          visibility: visible;
+          transform: translateX(-50%) translateY(0);
+        }
+
+        @media (max-width: 768px) {
+          .tool-tag::after {
+            display: none;
+          }
+        }
+
+        /* ========================================
+           GALLERY - MASONRY STYLE
+           ======================================== */
+
+        .gallery-section {
+          padding: 6rem;
+          background: var(--bg-primary);
+        }
+
+        .gallery-header {
+          text-align: center;
+          margin-bottom: 4rem;
+        }
+
+        .gallery-header h2 {
+          font-family: var(--font-display);
+          font-size: clamp(2.5rem, 5vw, 4rem);
+        }
+
+        .gallery-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          grid-template-rows: repeat(2, 280px);
+          gap: 1.5rem;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+
+        .gallery-item {
+          border-radius: 1.5rem;
+          overflow: hidden;
+          position: relative;
+          transition: all 0.4s ease;
+        }
+
+        .gallery-item:hover {
+          transform: scale(1.02);
+        }
+
+        .gallery-item:hover img {
+          transform: scale(1.1);
+        }
+
+        .gallery-item:nth-child(1) {
+          grid-row: span 2;
+        }
+
+        .gallery-item img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.6s ease;
+        }
+
+        /* ========================================
+           ANIMATIONS
+           ======================================== */
+
+        @keyframes fadeSlideUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        /* ========================================
+           RESPONSIVE
+           ======================================== */
+
+        @media (max-width: 1024px) {
+          .whit-hero-content {
+            grid-template-columns: 1fr;
+            padding: 8rem 2rem 4rem;
+            gap: 3rem;
+          }
+
+          .whit-hero-visual {
+            order: -1;
+          }
+
+          .role-section,
+          .experience-section {
+            grid-template-columns: 1fr;
+          }
+
+          .role-section.reverse,
+          .experience-section.reverse {
+            direction: ltr;
+          }
+
+          .role-image {
+            min-height: 300px;
+          }
+
+          .role-content,
+          .experience-content {
+            padding: 3rem 2rem;
+          }
+
+          .experience-visual {
+            min-height: 350px;
+          }
+
+          .learnings-section {
+            padding: 4rem 2rem;
+          }
+
+          .learnings-header {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+          }
+
+          .learnings-grid {
+            grid-template-columns: 1fr;
+            grid-template-rows: auto;
+          }
+
+          .learning-card:nth-child(1),
+          .learning-card:nth-child(2),
+          .learning-card:nth-child(3),
+          .learning-card:nth-child(4) {
+            grid-column: span 1;
+            grid-row: span 1;
+          }
+
+          .tools-section,
+          .gallery-section {
+            padding: 4rem 2rem;
+          }
+
+          .gallery-grid {
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto;
+          }
+
+          .gallery-item:nth-child(1) {
+            grid-row: span 1;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .role-meta {
+            flex-direction: column;
+            gap: 1rem;
+          }
+
+          .gallery-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+      `}</style>
+
+      {/* Navigation */}
+      <nav>
+        <Link href="/" className="nav-logo">Landon</Link>
+        <div className="nav-links">
+          <Link href="/content-creation">Content</Link>
+          <Link href="/whit-education" className="active">WHIT</Link>
+          <Link href="/brand-partnerships">Brands</Link>
+          <Link href="/campus">Campus</Link>
+          <Link href="/#about">About</Link>
+          <Link href="/#contact" className="nav-cta">Let&apos;s Talk</Link>
+        </div>
+        <div className="nav-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="whit-hero">
+        <div className="whit-hero-content">
+          <div className="whit-hero-text">
+            <div className="hero-top-row">
+              <Link href="/#experience" className="hero-back-link">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                Back to Work
+              </Link>
+              <span className="whit-label">Edtech Startup</span>
+            </div>
+
+            <h1 className="whit-hero-title">
+              WHIT
+              <span>Education</span>
             </h1>
-          </FadeIn>
-          <FadeIn delay={0.15}>
-            <p className="text-sm md:text-base text-gray-800 font-semibold tracking-wide mt-4">
-              December 2025 – Present
+
+            <p className="whit-hero-role">Director of Social Media Growth</p>
+
+            <p className="whit-hero-desc">
+              Leading social media strategy for an education technology platform focused on empowering students to find their voice. Building brand presence from inception&mdash;before product launch.
             </p>
-          </FadeIn>
-        </div>
-      </section>
 
-      {/* About the Role - Text Left, Photos Right */}
-      <section className="py-12 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-10 items-stretch">
-            <div className="flex flex-col">
-              <FadeInView>
-                <h2 className="text-2xl md:text-3xl font-serif text-gray-900 mb-6">
-                  About the Role
-                </h2>
-              </FadeInView>
-              <FadeInView delay={0.1} className="flex-1 flex">
-                <div className="bg-[#f5f5dc] rounded-2xl p-8 border border-[#d4c8a0] flex flex-col justify-center flex-1">
-                  <p className="text-gray-600 text-2xl leading-normal mb-6">
-                    Leading social media strategy for an education technology platform focused on
-                    empowering students to find their voice. WHIT is built on the belief that every
-                    student deserves to be heard and have the tools to express themselves effectively.
-                  </p>
-                  <p className="text-gray-600 text-2xl leading-normal">
-                    As Director of Social Media Growth, I was tasked with building the brand's
-                    social presence from the ground up ahead of product launch, developing a
-                    comprehensive strategy that resonates with educators across K-12 and higher education.
-                  </p>
-                </div>
-              </FadeInView>
+            <div className="whit-hero-cta">
+              <a href="https://whitai.app" target="_blank" rel="noopener" className="whit-btn">
+                Visit whitai.app
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+              </a>
             </div>
-            <div className="space-y-5">
-              <FadeInView delay={0.1}>
-                <PhotoPlaceholder
-                  src="/images/whit-1.jpg"
-                  alt="WHIT Education work"
-                  aspect="video"
-                  label="WHIT Photo 1"
-                  className="rounded-2xl"
-                />
-              </FadeInView>
-              <FadeInView delay={0.15}>
-                <PhotoPlaceholder
-                  src="/images/whit-2.jpg"
-                  alt="WHIT Education work"
-                  aspect="video"
-                  label="WHIT Photo 2"
-                  className="rounded-2xl"
-                />
-              </FadeInView>
+          </div>
+
+          <div className="whit-hero-visual">
+            <div className="whit-mockup">
+              <Image
+                src="/images/whit-hero.jpg"
+                alt="WHIT Education Platform"
+                width={600}
+                height={400}
+                style={{ width: '100%', height: 'auto', borderRadius: '1rem' }}
+              />
+              <span className="whit-mockup-badge">Dec 2025 – Present</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* What I've Learned at WHIT - Photos Left, Text Right */}
-      <section className="py-12 bg-[#f5f5dc]">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-10 items-stretch">
-            <div className="space-y-5">
-              <FadeInView delay={0.1}>
-                <PhotoPlaceholder
-                  src="/images/whit-3.jpg"
-                  alt="WHIT Education work"
-                  aspect="video"
-                  label="WHIT Photo 3"
-                  className="rounded-2xl"
-                />
-              </FadeInView>
-              <FadeInView delay={0.15} className="mt-10">
-                <PhotoPlaceholder
-                  src="/images/whit-4.jpg"
-                  alt="WHIT Education work"
-                  aspect="video"
-                  label="WHIT Photo 4"
-                  className="rounded-2xl"
-                />
-              </FadeInView>
+      {/* Role Details */}
+      <section className="role-section">
+        <div className="role-image">
+          <Image
+            src="/images/whit-1.jpg"
+            alt="WHIT Education Team"
+            fill
+            style={{ objectFit: 'cover' }}
+          />
+          <div className="role-image-overlay"></div>
+        </div>
+        <div className="role-content">
+          <p className="role-label">The Mission</p>
+          <h2 className="role-title">Every Student Deserves to Be Heard</h2>
+          <p className="role-desc">
+            At WHIT, we believe every student should have the tools to express themselves effectively. I&apos;m building the brand&apos;s social presence from the ground up&mdash;crafting strategies that resonate with K-12 and higher education educators before the product even launches.
+          </p>
+          <div className="role-meta">
+            <div className="role-meta-item">
+              <span className="role-meta-label">Company</span>
+              <span className="role-meta-value">WHIT Education</span>
             </div>
-            <div className="flex flex-col">
-              <FadeInView>
-                <h2 className="text-2xl md:text-3xl font-serif text-gray-900 mb-6">
-                  What I've Learned at WHIT
-                </h2>
-              </FadeInView>
-              <div className="grid grid-cols-2 gap-5 flex-1">
-                <FadeInView delay={0.1} className="flex">
-                  <div className="bg-white rounded-2xl p-8 border border-gray-200 flex flex-col flex-1 justify-center">
-                    <h3 className="font-semibold text-gray-900 mb-3 text-xl">Startup Mindset</h3>
-                    <p className="text-gray-600 text-lg leading-relaxed">Learned to work cross-functional roles and adapt quickly in an early-stage startup environment.</p>
-                  </div>
-                </FadeInView>
-                <FadeInView delay={0.15} className="flex">
-                  <div className="bg-white rounded-2xl p-8 border border-gray-200 flex flex-col flex-1 justify-center">
-                    <h3 className="font-semibold text-gray-900 mb-3 text-xl">AI Development</h3>
-                    <p className="text-gray-600 text-lg leading-relaxed">Gained hands-on experience using AI tools to build platforms and ensure user-friendliness without sacrificing quality.</p>
-                  </div>
-                </FadeInView>
-                <FadeInView delay={0.2} className="flex">
-                  <div className="bg-white rounded-2xl p-8 border border-gray-200 flex flex-col flex-1 justify-center">
-                    <h3 className="font-semibold text-gray-900 mb-3 text-xl">User Research</h3>
-                    <p className="text-gray-600 text-lg leading-relaxed">Conducted real in-class testing with teachers and students to verify product viability and gather feedback.</p>
-                  </div>
-                </FadeInView>
-                <FadeInView delay={0.25} className="flex">
-                  <div className="bg-white rounded-2xl p-8 border border-gray-200 flex flex-col flex-1 justify-center">
-                    <h3 className="font-semibold text-gray-900 mb-3 text-xl">Social Media Strategy</h3>
-                    <p className="text-gray-600 text-lg leading-relaxed">Learned to create a cohesive brand and social media strategy in the education industry from the ground up.</p>
-                  </div>
-                </FadeInView>
-              </div>
+            <div className="role-meta-item">
+              <span className="role-meta-label">Industry</span>
+              <span className="role-meta-value">EdTech / AI</span>
+            </div>
+            <div className="role-meta-item">
+              <span className="role-meta-label">Stage</span>
+              <span className="role-meta-value">Pre-Launch Startup</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Product & Startup Experience - Text Left, Photos Right */}
-      <section className="py-12 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <FadeInView>
-            <h2 className="text-2xl md:text-3xl font-serif text-gray-900 mb-6">
-              Product & Startup Experience
-            </h2>
-          </FadeInView>
-          <div className="grid md:grid-cols-[1fr_1.2fr] gap-8 items-stretch">
-            <div className="flex flex-col space-y-5">
-              <FadeInView delay={0.1} className="flex-1 flex">
-                <div className="bg-[#f5f5dc] rounded-2xl p-6 border border-[#d4c8a0] flex flex-col justify-center flex-1">
-                  <h3 className="font-semibold text-gray-900 mb-3 text-xl">AI-Powered Development</h3>
-                  <p className="text-gray-600 mb-4 text-lg leading-relaxed">
-                    Aided in developing WHIT's platform using AI tools for backend coding,
-                    leveraging Claude AI and ChatGPT Codex to accelerate development and
-                    refine core features.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 bg-white text-[#a16207] text-sm rounded-full">Claude AI</span>
-                    <span className="px-3 py-1 bg-white text-[#a16207] text-sm rounded-full">Prompt Engineering</span>
-                    <span className="px-3 py-1 bg-white text-[#a16207] text-sm rounded-full">Backend Coding</span>
-                  </div>
-                </div>
-              </FadeInView>
-              <FadeInView delay={0.15} className="flex-1 flex">
-                <div className="bg-[#f5f5dc] rounded-2xl p-6 border border-[#d4c8a0] flex flex-col justify-center flex-1">
-                  <h3 className="font-semibold text-gray-900 mb-3 text-xl">In-Class Testing & Pitching</h3>
-                  <p className="text-gray-600 mb-4 text-lg leading-relaxed">
-                    Assisted with real in-class testing alongside teachers and students to
-                    validate the product, and helped develop pitches for school districts
-                    to drive implementation and support go-to-market efforts.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 bg-white text-[#a16207] text-sm rounded-full">User Testing</span>
-                    <span className="px-3 py-1 bg-white text-[#a16207] text-sm rounded-full">District Pitches</span>
-                    <span className="px-3 py-1 bg-white text-[#a16207] text-sm rounded-full">Product Validation</span>
-                  </div>
-                </div>
-              </FadeInView>
+      {/* Learnings Section */}
+      <section className="learnings-section">
+        <div className="learnings-header">
+          <h2>What I&apos;ve<br/><span>Learned</span></h2>
+          <p>Working at an early-stage startup means wearing multiple hats. Here&apos;s what I&apos;ve gained from building WHIT from the ground up.</p>
+        </div>
+
+        <div className="learnings-grid">
+          <div className="learning-card">
+            <div className="learning-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="4"/></svg>
             </div>
-            <div className="space-y-5">
-              <FadeInView delay={0.1}>
-                <PhotoPlaceholder
-                  src="/images/whit-5.jpg"
-                  alt="WHIT Product Development"
-                  aspect="video"
-                  label="WHIT Photo 5"
-                  className="rounded-2xl"
-                  objectFit="contain"
-                />
-              </FadeInView>
-              <FadeInView delay={0.15}>
-                <PhotoPlaceholder
-                  src="/images/whit-6.jpg"
-                  alt="WHIT Startup Experience"
-                  aspect="video"
-                  label="WHIT Photo 6"
-                  className="rounded-2xl"
-                />
-              </FadeInView>
+            <h3 className="learning-title">Startup Mindset</h3>
+            <p className="learning-desc">Cross-functional collaboration and rapid adaptation in early-stage environments. Learning to wear multiple hats, move fast, and iterate quickly based on feedback and data.</p>
+          </div>
+
+          <div className="learning-card">
+            <div className="learning-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a10 10 0 1 0 10 10H12V2Z"/><path d="M12 2a10 10 0 0 1 10 10"/></svg>
             </div>
+            <h3 className="learning-title">AI Development</h3>
+            <p className="learning-desc">Hands-on platform building using AI tools while maintaining user-friendliness. Understanding how AI enhances education.</p>
+          </div>
+
+          <div className="learning-card">
+            <div className="learning-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            </div>
+            <h3 className="learning-title">User Research</h3>
+            <p className="learning-desc">In-class testing with teachers and students for real product validation.</p>
+          </div>
+
+          <div className="learning-card">
+            <div className="learning-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+            </div>
+            <h3 className="learning-title">Social Strategy</h3>
+            <p className="learning-desc">Building cohesive brand identity from ground zero.</p>
           </div>
         </div>
       </section>
 
-      {/* Tools */}
-      <section className="py-16 bg-[#f5f5dc]">
-        <div className="max-w-6xl mx-auto px-6">
-          <FadeInView>
-            <h2 className="text-2xl md:text-3xl font-serif text-gray-900 mb-6 text-center">
-              Tools & Platforms
-            </h2>
-            <div className="flex flex-wrap gap-3 justify-center">
-              {["PowerPoint", "Claude AI", "ChatGPT Codex", "Prompt Engineering", "Canva", "Excel", "CapCut", "LinkedIn"].map((tool) => (
-                <span
-                  key={tool}
-                  className="px-4 py-2 bg-white text-gray-700 rounded-full border border-gray-200"
-                >
-                  {tool}
-                </span>
-              ))}
-            </div>
-          </FadeInView>
+      {/* Experience 1: AI Development */}
+      <section className="experience-section">
+        <div className="experience-content">
+          <span className="experience-number">01</span>
+          <p className="experience-label">Development</p>
+          <h3 className="experience-title">AI-Powered Development</h3>
+          <p className="experience-subtitle">Platform Building &amp; Feature Development</p>
+          <p className="experience-desc">
+            Working directly with the founding team on platform development using Claude AI and ChatGPT Codex to accelerate development and refine core features. Learning how to leverage AI tools for rapid prototyping and iteration.
+          </p>
+        </div>
+        <div className="experience-visual">
+          <Image
+            src="/images/whit-2.jpg"
+            alt="AI Development Work"
+            fill
+            style={{ objectFit: 'cover' }}
+          />
         </div>
       </section>
 
-      {/* Visit WHIT */}
-      <section className="py-12 bg-white">
-        <div className="max-w-6xl mx-auto px-6 text-center">
-          <FadeInView>
-            <h2 className="text-2xl md:text-3xl font-serif text-gray-900 mb-6">
-              See WHIT in Action
-            </h2>
-            <a
-              href="https://whitai.app"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-[#a16207] text-white rounded-full font-semibold hover:bg-[#854d0e] transition-colors"
-            >
-              Visit whitai.app
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
+      {/* Experience 2: User Testing */}
+      <section className="experience-section reverse">
+        <div className="experience-content">
+          <span className="experience-number">02</span>
+          <p className="experience-label">Validation</p>
+          <h3 className="experience-title">In-Class Testing &amp; Pitching</h3>
+          <p className="experience-subtitle">User Research &amp; Market Implementation</p>
+          <p className="experience-desc">
+            Product validation through real classroom testing with teachers and students. Developing school district pitches for market implementation and learning how to communicate value to educational institutions.
+          </p>
+        </div>
+        <div className="experience-visual">
+          <Image
+            src="/images/whit-3.jpg"
+            alt="User Testing Sessions"
+            fill
+            style={{ objectFit: 'cover' }}
+          />
+        </div>
+      </section>
+
+      {/* Tools Section */}
+      <section className="tools-section">
+        <div className="tools-header">
+          <h2>Tools &amp; Technologies</h2>
+          <p>The tech stack powering WHIT&apos;s growth</p>
+        </div>
+
+        <div className="tools-cloud">
+          <span className="tool-tag featured" data-tooltip="AI assistant for development and content">Claude AI</span>
+          <span className="tool-tag featured" data-tooltip="Code generation and debugging">ChatGPT Codex</span>
+          <span className="tool-tag" data-tooltip="Crafting effective AI prompts">Prompt Engineering</span>
+          <span className="tool-tag" data-tooltip="District pitch decks and presentations">PowerPoint</span>
+          <span className="tool-tag" data-tooltip="Social media graphics and branding">Canva</span>
+          <span className="tool-tag" data-tooltip="Data tracking and analysis">Excel</span>
+          <span className="tool-tag" data-tooltip="Video editing for social content">CapCut</span>
+          <span className="tool-tag" data-tooltip="B2B outreach and networking">LinkedIn</span>
+          <span className="tool-tag" data-tooltip="Platform feature development">Backend Coding</span>
+          <span className="tool-tag" data-tooltip="Real classroom product testing">User Testing</span>
+          <span className="tool-tag" data-tooltip="School district sales presentations">District Pitches</span>
+          <span className="tool-tag" data-tooltip="Testing with real educators">Product Validation</span>
+        </div>
+      </section>
+
+      {/* Contact CTA */}
+      <section className="contact">
+        <div className="contact-content">
+          <p className="contact-label">Interested in Educational Technology and AI</p>
+          <h2 className="contact-title">Let&apos;s Connect</h2>
+          <div className="contact-links" style={{ marginTop: '2rem', paddingTop: 0, borderTop: 'none' }}>
+            <a href="mailto:lmcuny30@gmail.com" className="contact-link">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              lmcuny30@gmail.com
             </a>
-          </FadeInView>
+            <a href="https://linkedin.com/in/landon-cuny" target="_blank" rel="noopener" className="contact-link">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              LinkedIn
+            </a>
+          </div>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer>
+        <p>&copy; 2026 Landon Cuny. All rights reserved.</p>
+      </footer>
     </>
   );
 }

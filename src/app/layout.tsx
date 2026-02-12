@@ -1,43 +1,14 @@
 import type { Metadata } from "next";
-import { DM_Sans, Playfair_Display, Noto_Serif_Display, Yeseva_One, Nunito } from "next/font/google";
-import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
-import { Navigation } from "@/components/navigation";
-import { Footer } from "@/components/footer";
+import { Instrument_Serif } from "next/font/google";
+import "./styles/main.css";
 import { Analytics } from "@vercel/analytics/next";
 
-const dmSans = DM_Sans({
+const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-dm-sans",
-});
-
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-playfair",
-  style: ["normal", "italic"],
-});
-
-const notoSerifDisplay = Noto_Serif_Display({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-noto-serif",
-  weight: ["400", "500", "600", "700"],
-});
-
-const yesevaOne = Yeseva_One({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-cursive",
   weight: "400",
-});
-
-const nunito = Nunito({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-nunito",
-  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-display",
 });
 
 export const metadata: Metadata = {
@@ -54,7 +25,7 @@ export const metadata: Metadata = {
     "Content Creator",
     "Social Media Marketing",
     "SDSU Marketing",
-    "Digital Marketing Intern",
+    "Digital Marketing",
     "Growth Marketing",
     "Brand Partnerships",
   ],
@@ -68,32 +39,16 @@ export const metadata: Metadata = {
     description:
       "Marketing student at San Diego State University with 25,000+ followers and 130M+ views. Specializing in social media growth, content creation, and data-driven marketing.",
     siteName: "Landon Cuny",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Landon Cuny - Marketing Student & Content Creator",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Landon Cuny | Marketing Student & Content Creator",
     description:
       "Marketing student at SDSU with 25,000+ followers and 130M+ views.",
-    images: ["/og-image.png"],
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
   },
 };
 
@@ -103,22 +58,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Satoshi:wght@400;500;700&display=swap" rel="stylesheet" />
       </head>
-      <body
-        className={`${dmSans.variable} ${playfair.variable} ${notoSerifDisplay.variable} ${yesevaOne.variable} ${nunito.variable} font-body antialiased bg-white text-gray-900`}
-      >
-        <ThemeProvider>
-          <Navigation />
-          <div className="min-h-screen flex flex-col">
-            <div className="flex-grow">{children}</div>
-            <Footer />
-          </div>
-        </ThemeProvider>
+      <body className={instrumentSerif.variable}>
+        {children}
         <Analytics />
       </body>
     </html>

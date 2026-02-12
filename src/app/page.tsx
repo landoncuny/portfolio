@@ -1,259 +1,280 @@
-import { FadeIn, FadeInView } from "@/components/motion";
-import { PhotoPlaceholder } from "@/components/ui/photo-placeholder";
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
-import { siteConfig, certifications } from "@/content/site-content";
+import { useEffect } from "react";
 
 export default function Home() {
+  useEffect(() => {
+    // Initialize scroll animations
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.15
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    const animatedElements = document.querySelectorAll(`
+      .section-label,
+      .about-text,
+      .experience-title,
+      .experience-subtitle,
+      .bento-card,
+      .cert-card,
+      .contact-label,
+      .contact-title,
+      .contact-links
+    `);
+
+    animatedElements.forEach(el => observer.observe(el));
+
+    // Smooth scroll for anchor links
+    const handleAnchorClick = (e: Event) => {
+      e.preventDefault();
+      const href = (e.currentTarget as HTMLAnchorElement).getAttribute('href');
+      if (href === '#') return;
+      const target = document.querySelector(href!);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    };
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', handleAnchorClick);
+    });
+
+    // Mobile nav
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    const handleNavToggle = () => {
+      navLinks?.classList.toggle('active');
+      navToggle?.classList.toggle('active');
+    };
+    navToggle?.addEventListener('click', handleNavToggle);
+
+    return () => {
+      observer.disconnect();
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.removeEventListener('click', handleAnchorClick);
+      });
+      navToggle?.removeEventListener('click', handleNavToggle);
+    };
+  }, []);
+
   return (
     <>
-      {/* Hero - Side by Side Layout */}
-      <section className="mt-16 py-16 px-8 md:px-16 lg:px-24 bg-white">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12">
-          {/* Text on Left */}
-          <div className="flex-1">
-            <FadeIn delay={0.1}>
-              <span className="block text-[clamp(4rem,10vw,8rem)] font-cursive text-gray-900 leading-[0.9]">
-                Landon
-              </span>
-            </FadeIn>
-            <FadeIn delay={0.12}>
-              <span className="block text-[clamp(4rem,10vw,8rem)] font-cursive text-gray-900 md:ml-12 leading-[0.9]">
-                Cuny
-              </span>
-            </FadeIn>
-            <FadeIn delay={0.15}>
-              <p className="text-[clamp(0.875rem,2vw,1.25rem)] text-gray-600 font-body tracking-wide mt-4">
-                Content Creator · Social Media Director · Student
-              </p>
-            </FadeIn>
-          </div>
+      {/* Navigation */}
+      <nav>
+        <Link href="/" className="nav-logo">Landon</Link>
+        <div className="nav-links">
+          <a href="#experience">Work</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+          <a href="#contact" className="nav-cta">Let&apos;s Talk</a>
+        </div>
+        <div className="nav-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </nav>
 
-          {/* Photo on Right */}
-          <FadeIn delay={0.2}>
-            <div className="relative flex-shrink-0 rounded-2xl overflow-hidden shadow-xl">
-              <Image
-                src="/images/hero-photo.jpg"
-                alt="Landon Cuny"
-                width={6240}
-                height={4160}
-                priority
-                quality={100}
-                className="w-[320px] md:w-[400px] lg:w-[500px] h-auto"
-              />
+      {/* Hero */}
+      <section className="hero">
+        <div className="hero-content">
+          <h1 className="hero-name">
+            <span>Landon</span>
+            <span>Cuny</span>
+          </h1>
+          <p className="hero-title">Content Creator · Social Media Director</p>
+
+          <div className="hero-stats">
+            <div className="stat">
+              <span className="stat-value">25K+</span>
+              <span className="stat-label">Followers</span>
             </div>
-          </FadeIn>
-        </div>
-      </section>
-
-      {/* About Me */}
-      <section className="py-16 bg-white">
-        <div className="max-w-2xl mx-auto px-6">
-          <FadeInView delay={0.1}>
-            <h2 className="text-2xl font-cursive text-gray-900 text-center mb-6">
-              About Me
-            </h2>
-            <p className="text-lg text-gray-600 leading-relaxed text-center">
-              Hi! I'm Landon Cuny, a Marketing student at San Diego State University with real-world experience in content creation and social media growth. I built an engaged audience of 25,000+ followers and 130+ million views across all platforms. I am currently the Director of Social Media Growth for WHIT Education Platform.
-            </p>
-          </FadeInView>
-        </div>
-      </section>
-
-      {/* Experience Links */}
-      <section className="py-10 bg-[#eff6ff]">
-        <div className="max-w-3xl mx-auto px-6">
-          <div className="grid grid-cols-2 gap-3">
-            {/* Content Creation */}
-            <FadeInView delay={0.2}>
-              <Link
-                href="/content-creation"
-                className="block bg-white rounded-xl overflow-hidden border border-gray-100 hover:border-[#93c5fd] transition-colors group"
-              >
-                <PhotoPlaceholder
-                  src="/images/content-preview.jpg"
-                  alt="Content Creation"
-                  aspect="video"
-                  label="Content"
-                  className="w-full rounded-none rounded-t-xl"
-                />
-                <div className="py-3 text-center">
-                  <h3 className="font-cursive text-xl text-gray-900 group-hover:text-[#3b82f6] transition-colors">
-                    Content Creation
-                  </h3>
-                </div>
-              </Link>
-            </FadeInView>
-
-            {/* WHIT Education */}
-            <FadeInView delay={0.3}>
-              <Link
-                href="/whit-education"
-                className="block bg-white rounded-xl overflow-hidden border border-gray-100 hover:border-[#93c5fd] transition-colors group"
-              >
-                {/* WHIT IMAGE POSITION - adjust objectPosition to crop (e.g., "center top", "center 70%", "center bottom") */}
-                <PhotoPlaceholder
-                  src="/images/whit-preview.jpg"
-                  alt="WHIT Education"
-                  aspect="video"
-                  label="WHIT"
-                  className="w-full rounded-none rounded-t-xl"
-                  objectPosition="center 15%"
-                />
-                <div className="py-3 text-center">
-                  <h3 className="font-cursive text-xl text-gray-900 group-hover:text-[#3b82f6] transition-colors">
-                    WHIT Education
-                  </h3>
-                </div>
-              </Link>
-            </FadeInView>
-
-            {/* Brand Partnerships */}
-            <FadeInView delay={0.4}>
-              <Link
-                href="/brand-partnerships"
-                className="block bg-white rounded-xl overflow-hidden border border-gray-100 hover:border-[#93c5fd] transition-colors group"
-              >
-                <PhotoPlaceholder
-                  src="/images/brand-preview.jpg"
-                  alt="Brand Partnerships"
-                  aspect="video"
-                  label="Brands"
-                  className="w-full rounded-none rounded-t-xl"
-                  objectPosition="center 30%"
-                />
-                <div className="py-3 text-center">
-                  <h3 className="font-cursive text-xl text-gray-900 group-hover:text-[#3b82f6] transition-colors">
-                    Brand Partnerships
-                  </h3>
-                </div>
-              </Link>
-            </FadeInView>
-
-            {/* Campus Involvement */}
-            <FadeInView delay={0.5}>
-              <Link
-                href="/campus"
-                className="block bg-white rounded-xl overflow-hidden border border-gray-100 hover:border-[#93c5fd] transition-colors group"
-              >
-                <PhotoPlaceholder
-                  src="/images/campus-preview.jpg"
-                  alt="Campus Involvement"
-                  aspect="video"
-                  label="Campus"
-                  className="w-full rounded-none rounded-t-xl"
-                />
-                <div className="py-3 text-center">
-                  <h3 className="font-cursive text-xl text-gray-900 group-hover:text-[#3b82f6] transition-colors">
-                    Campus Involvement
-                  </h3>
-                </div>
-              </Link>
-            </FadeInView>
+            <div className="stat">
+              <span className="stat-value">130M+</span>
+              <span className="stat-label">Views</span>
+            </div>
+            <div className="stat">
+              <span className="stat-value">7+</span>
+              <span className="stat-label">Brand Partners</span>
+            </div>
           </div>
+
+          <div className="hero-cta">
+            <a href="#experience" className="btn-primary">
+              View My Work
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#contact" className="btn-secondary">Get in Touch</a>
+          </div>
+        </div>
+
+        <div className="hero-image">
+          <div className="hero-decoration"></div>
+          <Image
+            src="/images/hero-photo.jpg"
+            alt="Landon Cuny - Marketing Student and Content Creator"
+            width={600}
+            height={800}
+            priority
+            unoptimized
+          />
+        </div>
+
+        <div className="scroll-indicator">
+          Scroll
+          <span></span>
+        </div>
+      </section>
+
+      {/* About */}
+      <section className="about" id="about">
+        <p className="section-label">About Me</p>
+        <p className="about-text">
+          I&apos;m a Marketing student at <span>San Diego State University</span> with real-world experience in content creation and social media growth. I built an engaged audience of <span>25,000+ followers</span> and <span>130+ million views</span> across platforms. Currently serving as Director of Social Media Growth for WHIT Education.
+        </p>
+      </section>
+
+      {/* Experience - Bento Grid */}
+      <section className="experience" id="experience">
+        <div className="experience-header">
+          <h2 className="experience-title">Selected Work</h2>
+          <p className="experience-subtitle">From content creation to brand strategy, here&apos;s what I&apos;ve been building.</p>
+        </div>
+
+        <div className="bento-grid">
+          {/* WHIT - Featured (larger) */}
+          <Link href="/whit-education" className="bento-card">
+            <div className="card-image">
+              <Image src="/images/whit-preview.jpg" alt="WHIT Education" fill style={{objectFit: 'cover'}} />
+            </div>
+            <div className="card-overlay"></div>
+            <div className="card-content">
+              <span className="card-label">Featured Role</span>
+              <h3 className="card-title">WHIT Education</h3>
+              <p className="card-desc">Director of Social Media Growth — Building an education platform&apos;s social presence from the ground up.</p>
+            </div>
+            <div className="card-arrow">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+            </div>
+          </Link>
+
+          {/* Content Creation */}
+          <Link href="/content-creation" className="bento-card">
+            <div className="card-image">
+              <Image src="/images/content-preview.jpg" alt="Content Creation" fill style={{objectFit: 'cover'}} />
+            </div>
+            <div className="card-overlay"></div>
+            <div className="card-content">
+              <span className="card-label">@LandonDresses</span>
+              <h3 className="card-title">Content Creation</h3>
+              <p className="card-desc">Fashion & lifestyle content with 130M+ total views.</p>
+            </div>
+            <div className="card-arrow">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+            </div>
+          </Link>
+
+          {/* Brand Partnerships */}
+          <Link href="/brand-partnerships" className="bento-card">
+            <div className="card-image">
+              <Image src="/images/brand-preview.jpg" alt="Brand Partnerships" fill style={{objectFit: 'cover'}} />
+            </div>
+            <div className="card-overlay"></div>
+            <div className="card-content">
+              <span className="card-label">Collaborations</span>
+              <h3 className="card-title">Brand Partnerships</h3>
+              <p className="card-desc">Working with leading brands.</p>
+            </div>
+            <div className="card-arrow">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+            </div>
+          </Link>
+
+          {/* Campus */}
+          <Link href="/campus" className="bento-card">
+            <div className="card-image">
+              <Image src="/images/campus-preview.jpg" alt="Campus Involvement" fill style={{objectFit: 'cover'}} />
+            </div>
+            <div className="card-overlay"></div>
+            <div className="card-content">
+              <span className="card-label">Leadership</span>
+              <h3 className="card-title">Campus</h3>
+            </div>
+            <div className="card-arrow">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+            </div>
+          </Link>
         </div>
       </section>
 
       {/* Certifications */}
-      <section className="py-12 bg-white">
-        <div className="max-w-3xl mx-auto px-6">
-          <FadeInView>
-            <h2 className="text-2xl font-cursive text-gray-900 text-center mb-8">
-              Certifications
-            </h2>
-          </FadeInView>
-          <div className="grid md:grid-cols-2 gap-4">
-            {/* Excel Certification */}
-            <FadeInView delay={0.1}>
-              <a
-                href="https://www.credly.com/badges/45067bbe-f884-4067-b798-0fae798d1161/public_url"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block bg-[#eff6ff] rounded-xl p-5 border border-gray-100 hover:border-[#93c5fd] transition-colors group"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center shrink-0">
-                    {/* Excel Logo */}
-                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none">
-                      <path d="M23 1.5H8c-.3 0-.5.2-.5.5v2H1c-.3 0-.5.2-.5.5v15c0 .3.2.5.5.5h6.5v2c0 .3.2.5.5.5h15c.3 0 .5-.2.5-.5v-19c0-.3-.2-.5-.5-.5zM1.5 5h5.5v1.5h-4v8h4V16h-5.5V5zM7 8.5v5H3v-5h4zm.5 12V17h1v2.5h-1zm14.5 0H9.5V17H15v-1H9.5v-2H15v-1H9.5v-2H15v-1H9.5V8H15V7H9.5V4.5H22v16z" fill="#217346"/>
-                    </svg>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-medium text-gray-900 group-hover:text-[#3b82f6] transition-colors text-sm leading-tight">
-                      Microsoft Office Specialist: Excel Associate
-                    </h3>
-                    <p className="text-gray-500 text-sm mt-1">Microsoft</p>
-                  </div>
-                </div>
-              </a>
-            </FadeInView>
+      <section className="certifications">
+        <p className="section-label" style={{textAlign: 'center'}}>Credentials</p>
+        <h2 className="experience-title" style={{textAlign: 'center'}}>Certifications</h2>
 
-            {/* SDSU AI Certification */}
-            <FadeInView delay={0.2}>
-              <a
-                href="https://www.credly.com/badges/19380a88-2d31-4aa6-afb1-ef27b621d360/public_url"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block bg-[#eff6ff] rounded-xl p-5 border border-gray-100 hover:border-[#93c5fd] transition-colors group"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-[#a6192e] rounded-lg flex items-center justify-center shrink-0">
-                    {/* SDSU Logo - Simplified */}
-                    <span className="text-white font-bold text-xs">SDSU</span>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-medium text-gray-900 group-hover:text-[#3b82f6] transition-colors text-sm leading-tight">
-                      Student Academic Applications of AI (AAAI)
-                    </h3>
-                    <p className="text-gray-500 text-sm mt-1">San Diego State University</p>
-                  </div>
-                </div>
-              </a>
-            </FadeInView>
+        <div className="cert-grid">
+          <a href="https://www.credly.com/badges/45067bbe-f884-4067-b798-0fae798d1161/public_url" target="_blank" rel="noopener noreferrer" className="cert-card">
+            <div className="cert-icon">
+              <svg viewBox="0 0 24 24" fill="#217346">
+                <path d="M23 1.5H8c-.3 0-.5.2-.5.5v2H1c-.3 0-.5.2-.5.5v15c0 .3.2.5.5.5h6.5v2c0 .3.2.5.5.5h15c.3 0 .5-.2.5-.5v-19c0-.3-.2-.5-.5-.5zM7 8.5v5H3v-5h4zm.5 12V17h1v2.5h-1zm14.5 0H9.5V4.5H22v16z"/>
+              </svg>
+            </div>
+            <div className="cert-info">
+              <h3>Microsoft Excel Associate</h3>
+              <p>Microsoft Office Specialist</p>
+            </div>
+          </a>
+
+          <a href="https://www.credly.com/badges/19380a88-2d31-4aa6-afb1-ef27b621d360/public_url" target="_blank" rel="noopener noreferrer" className="cert-card">
+            <div className="cert-icon" style={{background: '#a6192e'}}>
+              <span style={{color: 'white', fontWeight: 'bold', fontSize: '10px'}}>SDSU</span>
+            </div>
+            <div className="cert-info">
+              <h3>Academic Applications of AI</h3>
+              <p>San Diego State University</p>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section className="contact" id="contact">
+        <div className="contact-content">
+          <p className="contact-label">Contact</p>
+          <h2 className="contact-title">Get in touch with me</h2>
+
+          <div className="contact-links" style={{marginTop: '2rem', paddingTop: 0, borderTop: 'none'}}>
+            <a href="mailto:lmcuny30@gmail.com" className="contact-link">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              lmcuny30@gmail.com
+            </a>
+            <a href="tel:6613888307" className="contact-link">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              661-388-8307
+            </a>
+            <a href="https://linkedin.com/in/landon-cuny" target="_blank" rel="noopener noreferrer" className="contact-link">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              LinkedIn
+            </a>
           </div>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="py-10 bg-[#dbeafe]">
-        <div className="max-w-3xl mx-auto px-6">
-          <FadeInView>
-            <div className="flex flex-wrap items-center justify-center gap-6 text-gray-600">
-              <a
-                href={`mailto:${siteConfig.email}`}
-                className="flex items-center gap-2 hover:text-[#3b82f6] transition-colors"
-              >
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-                {siteConfig.email}
-              </a>
-              <span className="hidden sm:inline text-gray-300">|</span>
-              <a
-                href={`tel:${siteConfig.phone.replace(/-/g, "")}`}
-                className="flex items-center gap-2 hover:text-[#3b82f6] transition-colors"
-              >
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
-                {siteConfig.phone}
-              </a>
-              <span className="hidden sm:inline text-gray-300">|</span>
-              <a
-                href={siteConfig.social.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 hover:text-[#3b82f6] transition-colors"
-              >
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                </svg>
-                LinkedIn
-              </a>
-            </div>
-          </FadeInView>
-        </div>
-      </section>
+      {/* Footer */}
+      <footer>
+        <p>&copy; 2026 Landon Cuny. All rights reserved.</p>
+      </footer>
     </>
   );
 }
