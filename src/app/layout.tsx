@@ -17,6 +17,10 @@ export const metadata: Metadata = {
     default: "Landon Cuny | Marketing Student & Content Creator",
     template: "%s | Landon Cuny",
   },
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
   description:
     "Marketing student at San Diego State University with 25,000+ followers and 130M+ views. Specializing in social media growth, content creation, and data-driven marketing.",
   keywords: [
