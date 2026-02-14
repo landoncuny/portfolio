@@ -1,0 +1,669 @@
+/* ========================================
+   WHIT EDUCATION - STARTUP EDITORIAL
+   Premium tech-forward design
+   ======================================== */
+
+.whit-hero {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.whit-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 50%, rgba(225, 29, 72, 0.1) 0%, transparent 50%);
+}
+
+/* Animated grid background */
+.whit-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+}
+
+.whit-hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 8rem 6rem 4rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+}
+
+.whit-hero-text {
+  color: white;
+}
+
+.hero-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  animation: fadeSlideUp 0.6s ease 0.2s forwards;
+}
+
+.hero-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255,255,255,0.5);
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.hero-back-link:hover {
+  color: white;
+}
+
+.hero-back-link svg {
+  width: 16px;
+  height: 16px;
+}
+
+.whit-label {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.5);
+  padding: 0.4rem 0.8rem;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 4px;
+}
+
+.whit-hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 7vw, 6rem);
+  line-height: 0.95;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeSlideUp 0.8s ease 0.3s forwards;
+}
+
+.whit-hero-title span {
+  display: block;
+  background: linear-gradient(135deg, #6366F1 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.whit-hero-role {
+  font-size: 1.25rem;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: fadeSlideUp 0.6s ease 0.4s forwards;
+}
+
+.whit-hero-desc {
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.8;
+  max-width: 500px;
+  opacity: 0;
+  animation: fadeSlideUp 0.6s ease 0.5s forwards;
+}
+
+.whit-hero-cta {
+  margin-top: 2.5rem;
+  opacity: 0;
+  animation: fadeSlideUp 0.6s ease 0.6s forwards;
+}
+
+.whit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 100px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.whit-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px -10px rgba(99, 102, 241, 0.5);
+}
+
+.whit-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Hero visual */
+.whit-hero-visual {
+  position: relative;
+  opacity: 0;
+  animation: fadeSlideUp 1s ease 0.5s forwards;
+}
+
+.whit-mockup {
+  position: relative;
+  background: linear-gradient(145deg, #1E293B, #0F172A);
+  border-radius: 1.5rem;
+  padding: 1rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow:
+    0 50px 100px -20px rgba(0,0,0,0.5),
+    0 30px 60px -15px rgba(99, 102, 241, 0.2);
+}
+
+.whit-mockup img {
+  width: 100%;
+  border-radius: 1rem;
+}
+
+.whit-mockup-badge {
+  position: absolute;
+  top: -1rem;
+  right: -1rem;
+  background: linear-gradient(135deg, var(--accent) 0%, #BE123C 100%);
+  color: white;
+  padding: 0.75rem 1.25rem;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  box-shadow: 0 10px 30px -10px var(--accent);
+}
+
+/* ========================================
+   ROLE DETAILS - SPLIT SECTION
+   ======================================== */
+
+.role-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 70vh;
+}
+
+.role-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.role-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.role-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, transparent 0%, var(--bg-primary) 100%);
+}
+
+.role-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem 5rem;
+  background: var(--bg-primary);
+}
+
+.role-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #6366F1;
+  margin-bottom: 1rem;
+}
+
+.role-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+
+.role-desc {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+.role-meta {
+  display: flex;
+  gap: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.role-meta-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.role-meta-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.role-meta-value {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* ========================================
+   LEARNINGS - BENTO GRID
+   ======================================== */
+
+.learnings-section {
+  padding: 8rem 6rem;
+  background: var(--bg-secondary);
+}
+
+.learnings-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  margin-bottom: 4rem;
+  align-items: end;
+}
+
+.learnings-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 5vw, 4.5rem);
+  line-height: 0.95;
+}
+
+.learnings-header h2 span {
+  font-style: italic;
+  color: #6366F1;
+}
+
+.learnings-header p {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.learnings-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 220px);
+  gap: 1.5rem;
+}
+
+.learning-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.learning-card:hover {
+  transform: translateY(-6px);
+  border-color: #6366F1;
+  box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.2);
+}
+
+.learning-card:nth-child(1) {
+  grid-column: span 2;
+  grid-row: span 2;
+  background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+  color: white;
+  border-color: transparent;
+}
+
+.learning-card:nth-child(1):hover {
+  border-color: #6366F1;
+}
+
+.learning-card:nth-child(1) .learning-icon {
+  background: rgba(99, 102, 241, 0.2);
+  color: #A5B4FC;
+}
+
+.learning-card:nth-child(1) .learning-desc {
+  color: rgba(255,255,255,0.6);
+}
+
+.learning-card:nth-child(2) { grid-column: span 2; }
+.learning-card:nth-child(3) { grid-column: span 1; }
+.learning-card:nth-child(4) { grid-column: span 1; }
+
+.learning-icon {
+  width: 56px;
+  height: 56px;
+  background: var(--bg-secondary);
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  color: #6366F1;
+}
+
+.learning-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.learning-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.learning-desc {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  flex: 1;
+}
+
+/* ========================================
+   EXPERIENCE - TIMELINE INTERLEAVE
+   ======================================== */
+
+.experience-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 70vh;
+}
+
+.experience-section.reverse {
+  direction: rtl;
+}
+
+.experience-section.reverse > * {
+  direction: ltr;
+}
+
+.experience-visual {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-secondary);
+}
+
+.experience-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.experience-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem 5rem;
+  background: var(--bg-primary);
+}
+
+.experience-number {
+  font-family: var(--font-display);
+  font-size: 6rem;
+  line-height: 1;
+  color: #D6D3D1;
+  margin-bottom: 1rem;
+}
+
+.experience-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #6366F1;
+  margin-bottom: 1rem;
+}
+
+.experience-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+.experience-subtitle {
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+}
+
+.experience-desc {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+/* ========================================
+   TOOLS - FLOATING TAGS
+   ======================================== */
+
+.tools-section {
+  padding: 6rem 6rem 8rem;
+  background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.tools-section::before {
+  content: 'TOOLS';
+  font-family: var(--font-display);
+  font-size: 15vw;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgba(255,255,255,0.02);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.tools-header {
+  text-align: center;
+  color: white;
+  margin-bottom: 4rem;
+  position: relative;
+  z-index: 2;
+}
+
+.tools-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  margin-bottom: 1rem;
+}
+
+.tools-header p {
+  color: rgba(255,255,255,0.5);
+  font-size: 1.1rem;
+}
+
+.tools-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.tool-tag {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 100px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+  cursor: default;
+}
+
+.tool-tag:hover {
+  background: rgba(99, 102, 241, 0.2);
+  border-color: #6366F1;
+  transform: translateY(-3px);
+}
+
+.tool-tag.featured {
+  background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%);
+  border-color: transparent;
+  font-weight: 600;
+}
+
+.tool-tag.featured:hover {
+  box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.5);
+}
+
+/* Tooltip styles */
+.tool-tag::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(5px);
+  background: rgba(15, 23, 42, 0.95);
+  color: rgba(255,255,255,0.9);
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 400;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  z-index: 10;
+  border: 1px solid rgba(255,255,255,0.1);
+  max-width: 200px;
+  white-space: normal;
+  text-align: center;
+}
+
+.tool-tag:hover::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+@media (max-width: 768px) {
+  .tool-tag::after {
+    display: none;
+  }
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 1024px) {
+  .whit-hero-content {
+    grid-template-columns: 1fr;
+    padding: 8rem 2rem 4rem;
+    gap: 3rem;
+  }
+
+  .whit-hero-visual {
+    order: -1;
+  }
+
+  .role-section,
+  .experience-section {
+    grid-template-columns: 1fr;
+  }
+
+  .role-section.reverse,
+  .experience-section.reverse {
+    direction: ltr;
+  }
+
+  .role-image {
+    min-height: 300px;
+  }
+
+  .role-content,
+  .experience-content {
+    padding: 3rem 2rem;
+  }
+
+  .experience-visual {
+    min-height: 350px;
+  }
+
+  .learnings-section {
+    padding: 4rem 2rem;
+  }
+
+  .learnings-header {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .learnings-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  .learning-card:nth-child(1),
+  .learning-card:nth-child(2),
+  .learning-card:nth-child(3),
+  .learning-card:nth-child(4) {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+
+  .tools-section {
+    padding: 4rem 2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .role-meta {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
