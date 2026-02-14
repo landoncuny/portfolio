@@ -1,5 +1,6 @@
 {
-  "buildCommand": "",
+  "installCommand": "echo 'Skipping install'",
+  "buildCommand": "echo 'Skipping build'",
   "outputDirectory": "site",
   "framework": null,
   "rewrites": [
