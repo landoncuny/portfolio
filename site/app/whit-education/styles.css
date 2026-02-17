@@ -600,6 +600,31 @@
 }
 
 /* ========================================
+   PAGE CONTACT OVERRIDE
+   ======================================== */
+
+.page-contact {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.page-contact h2 {
+  color: var(--text-primary);
+}
+
+.page-contact p {
+  color: var(--text-secondary);
+}
+
+.page-contact-link {
+  color: var(--text-secondary);
+}
+
+.page-contact-link:hover {
+  color: var(--text-primary);
+}
+
+/* ========================================
    RESPONSIVE
    ======================================== */
 
