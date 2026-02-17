@@ -58,8 +58,6 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2.5rem;
-  opacity: 0;
-  animation: fadeSlideUp 0.6s ease 0.2s forwards;
 }
 
 .hero-back-link {
@@ -98,8 +96,6 @@
   font-size: clamp(3.5rem, 7vw, 6rem);
   line-height: 0.95;
   margin-bottom: 1.5rem;
-  opacity: 0;
-  animation: fadeSlideUp 0.8s ease 0.3s forwards;
 }
 
 .whit-hero-title span {
@@ -114,8 +110,6 @@
   font-size: 1.25rem;
   color: rgba(255,255,255,0.7);
   margin-bottom: 2rem;
-  opacity: 0;
-  animation: fadeSlideUp 0.6s ease 0.4s forwards;
 }
 
 .whit-hero-desc {
@@ -123,14 +117,10 @@
   color: rgba(255,255,255,0.5);
   line-height: 1.8;
   max-width: 500px;
-  opacity: 0;
-  animation: fadeSlideUp 0.6s ease 0.5s forwards;
 }
 
 .whit-hero-cta {
   margin-top: 2.5rem;
-  opacity: 0;
-  animation: fadeSlideUp 0.6s ease 0.6s forwards;
 }
 
 .whit-btn {
@@ -158,8 +148,6 @@
 /* Hero visual */
 .whit-hero-visual {
   position: relative;
-  opacity: 0;
-  animation: fadeSlideUp 1s ease 0.5s forwards;
 }
 
 .whit-mockup {

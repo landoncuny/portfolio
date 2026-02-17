@@ -966,7 +966,7 @@ nav {
 .work-section,
 .skills-section,
 .tools-section,
-.page-cta {
+.page-contact {
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.6s ease, transform 0.6s ease;
@@ -986,62 +986,63 @@ nav {
 .work-section.visible,
 .skills-section.visible,
 .tools-section.visible,
-.page-cta.visible {
+.page-contact.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
 /* --------------------------------------------------------------------------
-   PAGE CTA (for experience pages)
+   PAGE CONTACT (for experience pages)
    -------------------------------------------------------------------------- */
-.page-cta {
+.page-contact {
   padding: var(--space-5xl) var(--space-4xl);
   background: var(--bg-dark);
   color: white;
   text-align: center;
 }
 
-.page-cta-content {
-  max-width: 600px;
+.page-contact-content {
+  max-width: 700px;
   margin: 0 auto;
 }
 
-.page-cta h2 {
+.page-contact h2 {
   font-family: var(--font-display);
   font-size: clamp(2rem, 4vw, 3rem);
   margin-bottom: 1rem;
 }
 
-.page-cta p {
+.page-contact p {
   color: rgba(255,255,255,0.6);
   font-size: 1.1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
-.page-cta-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 1rem 2rem;
-  background: var(--accent);
-  color: white;
+.page-contact-links {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.page-contact-link {
+  color: rgba(255,255,255,0.7);
   text-decoration: none;
-  font-weight: 600;
-  border-radius: 50px;
-  transition: all var(--transition-fast);
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  transition: color var(--transition-fast);
 }
 
-.page-cta-btn:hover {
-  background: var(--accent-hover);
-  transform: translateY(-2px);
+.page-contact-link:hover {
+  color: white;
 }
 
-.page-cta-btn svg {
-  transition: transform var(--transition-fast);
-}
-
-.page-cta-btn:hover svg {
-  transform: translateX(4px);
+.page-contact-link svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
 }
 
 /* --------------------------------------------------------------------------

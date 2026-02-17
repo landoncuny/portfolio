@@ -56,8 +56,6 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2.5rem;
-  opacity: 0;
-  animation: fadeSlideUp 0.6s ease 0.2s forwards;
 }
 
 .hero-back-link {
@@ -96,8 +94,6 @@
   font-size: clamp(4rem, 8vw, 7rem);
   line-height: 0.9;
   margin-bottom: 1.5rem;
-  opacity: 0;
-  animation: fadeSlideUp 0.8s ease 0.3s forwards;
 }
 
 .campus-hero-title span {
@@ -111,8 +107,6 @@
   color: rgba(255,255,255,0.6);
   line-height: 1.7;
   max-width: 500px;
-  opacity: 0;
-  animation: fadeSlideUp 0.6s ease 0.4s forwards;
 }
 
 .campus-hero-meta {
@@ -121,8 +115,6 @@
   margin-top: 3rem;
   padding-top: 2rem;
   border-top: 1px solid rgba(255,255,255,0.1);
-  opacity: 0;
-  animation: fadeSlideUp 0.6s ease 0.5s forwards;
 }
 
 .campus-meta-item {
@@ -146,8 +138,6 @@
 
 .campus-hero-image {
   position: relative;
-  opacity: 0;
-  animation: fadeSlideUp 1s ease 0.5s forwards;
 }
 
 .campus-hero-image img {

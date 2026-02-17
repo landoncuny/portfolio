@@ -86,7 +86,7 @@ export function ClientScripts() {
       .campus-hero-content,
       .skills-section,
       .tools-section,
-      .page-cta
+      .page-contact
     `)
 
     animatedElements.forEach(el => {
