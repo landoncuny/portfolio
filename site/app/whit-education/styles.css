@@ -198,24 +198,32 @@
 .role-section {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  min-height: 70vh;
+  min-height: auto;
 }
 
 .role-image {
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-secondary);
+  padding: 2rem;
 }
 
 .role-image img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
+  max-height: 500px;
+  border-radius: 1rem;
 }
 
 .role-image-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to right, transparent 0%, var(--bg-primary) 100%);
+  background: linear-gradient(to right, transparent 60%, var(--bg-primary) 100%);
+  pointer-events: none;
 }
 
 .role-content {
@@ -395,7 +403,8 @@
 .experience-section {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  min-height: 70vh;
+  min-height: auto;
+  align-items: center;
 }
 
 .experience-section.reverse {
@@ -410,12 +419,18 @@
   position: relative;
   overflow: hidden;
   background: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
 }
 
 .experience-visual img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
+  max-height: 500px;
+  border-radius: 1rem;
 }
 
 .experience-content {
@@ -622,7 +637,12 @@
   }
 
   .role-image {
-    min-height: 300px;
+    min-height: auto;
+    padding: 2rem;
+  }
+
+  .role-image img {
+    max-height: 400px;
   }
 
   .role-content,
@@ -631,7 +651,11 @@
   }
 
   .experience-visual {
-    min-height: 350px;
+    min-height: auto;
+  }
+
+  .experience-visual img {
+    max-height: 350px;
   }
 
   .learnings-section {
