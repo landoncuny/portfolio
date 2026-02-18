@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { ClientScripts } from './ClientScripts'
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const metadata: Metadata = {
   title: 'Landon Cuny | Marketing Student & Content Creator',
@@ -39,6 +40,7 @@ export default function RootLayout({
       <body>
         {children}
         <ClientScripts />
+        <SpeedInsights />
       </body>
     </html>
   )
