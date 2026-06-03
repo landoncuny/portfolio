@@ -32,15 +32,15 @@ export default function Home() {
 
           <div className="hero-stats">
             <div className="stat">
-              <span className="stat-value">25K+</span>
+              <span className="stat-value">35K+</span>
               <span className="stat-label">Followers</span>
             </div>
             <div className="stat">
-              <span className="stat-value">130M+</span>
+              <span className="stat-value">150M+</span>
               <span className="stat-label">Views</span>
             </div>
             <div className="stat">
-              <span className="stat-value">8+</span>
+              <span className="stat-value">13+</span>
               <span className="stat-label">Brand Partners</span>
             </div>
           </div>
@@ -85,7 +85,7 @@ export default function Home() {
             <div className="card-content">
               <span className="card-label">@LandonDresses</span>
               <h3 className="card-title">Content Creation</h3>
-              <p className="card-desc">Fashion & lifestyle content with 130M+ total views and 25K+ followers.</p>
+              <p className="card-desc">Fashion & lifestyle content with 150M+ total views and 40K+ followers.</p>
             </div>
             <div className="card-arrow">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>

@@ -4,7 +4,7 @@ import './styles.css'
 
 export const metadata: Metadata = {
   title: 'Content Creation | Landon Cuny',
-  description: 'Building audiences on Instagram, TikTok, and YouTube with 25,000+ followers and 130M+ views through engaging content and strategic growth.',
+  description: 'Building audiences on Instagram, TikTok, and YouTube with 40,000+ followers and 150M+ views through engaging content and strategic growth.',
 }
 
 export default function ContentCreation() {
@@ -44,15 +44,15 @@ export default function ContentCreation() {
 
           <div className="hero-stats-row">
             <div className="hero-stat">
-              <div className="hero-stat-value">25K+</div>
+              <div className="hero-stat-value">35K+</div>
               <div className="hero-stat-label">Followers</div>
             </div>
             <div className="hero-stat">
-              <div className="hero-stat-value">130M+</div>
+              <div className="hero-stat-value">150M+</div>
               <div className="hero-stat-label">Total Views</div>
             </div>
             <div className="hero-stat">
-              <div className="hero-stat-value">$6K+</div>
+              <div className="hero-stat-value">$10K+</div>
               <div className="hero-stat-label">Revenue</div>
             </div>
           </div>
@@ -78,8 +78,8 @@ export default function ContentCreation() {
                 <span className="play-icon"></span>
               </div>
               <div className="video-card-stats">
-                <div className="video-card-views">9.5M views</div>
-                <div className="video-card-likes">900K likes</div>
+                <div className="video-card-views">12.1M views</div>
+                <div className="video-card-likes">1.2M likes</div>
               </div>
             </div>
             <div className="hero-video-card">
@@ -153,10 +153,10 @@ export default function ContentCreation() {
             </div>
             <div className="viral-card-info">
               <div className="viral-card-stat">
-                <strong>9.5M</strong>
+                <strong>12.1M</strong>
                 <span>views</span>
               </div>
-              <div className="viral-card-likes">900K likes</div>
+              <div className="viral-card-likes">1.2M likes</div>
             </div>
           </div>
 
