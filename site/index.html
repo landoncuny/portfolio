@@ -3,6 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Landon Cuny — content creator & marketing student. 40K+ followers, 160M+ views, and brand work across fashion, tech, and marketing agencies.">
+<link rel="icon" type="image/png" href="images/content-logo.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Landon Cuny — Portfolio">
+<meta property="og:description" content="Landon Cuny — content creator & marketing student. 40K+ followers, 160M+ views, and brand work across fashion, tech, and marketing agencies.">
+<meta property="og:image" content="images/content-logo.png">
+<meta name="twitter:card" content="summary_large_image">
 <script src="./support.js"></script>
 </head>
 <body>
@@ -16,6 +23,17 @@
 <style>
   html { scroll-behavior: smooth; }
   body { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Satoshi', -apple-system, sans-serif; background: #FAF8F5; color: #1C1917; line-height: 1.6; overflow-x: hidden; }
+
+  @media (max-width: 860px) {
+    nav { padding: 1rem 1.25rem !important; }
+    nav > div { flex-wrap: wrap; gap: 1rem !important; row-gap: 0.5rem; justify-content: flex-end; }
+    nav a { font-size: 0.82rem !important; }
+    [style*="grid-template-columns: 1fr 1fr"],
+    [style*="grid-template-columns: 320px 1fr"],
+    [style*="grid-template-columns: repeat(2"],
+    [style*="grid-template-columns: repeat(3"],
+    [style*="grid-template-columns: repeat(4"] { grid-template-columns: 1fr !important; }
+  }
   body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); opacity: 0.03; pointer-events: none; z-index: 1000; }
   @keyframes heroReveal { to { opacity: 1; transform: translateY(0); } }
 image-slot { display: block; width: 100%; height: 100%; }
@@ -45,7 +63,7 @@ image-slot { display: block; width: 100%; height: 100%; }
 
 <section data-screen-label="Editorial Hero" style="min-height: 100vh; padding: 9rem 3rem 3rem; position: relative; display: flex; flex-direction: column; justify-content: center; overflow: hidden">
   <div style="position: relative; max-width: 1400px; margin: 0 auto; width: 100%">
-    <p style="font-size: 0.8rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: #DC2626; margin: 0 0 1.5rem 0.25rem; opacity: 0; transform: translateY(20px); animation: heroReveal 0.8s cubic-bezier(0.16,1,0.3,1) 0.3s forwards">Content Creator · Social Media Director · Student</p>
+    <p style="font-size: 0.8rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: #DC2626; margin: 0 0 1.5rem 0.25rem; opacity: 0; transform: translateY(20px); animation: heroReveal 0.8s cubic-bezier(0.16,1,0.3,1) 0.3s forwards">Content Creator · Brand Marketing Intern · Student</p>
     <div style="position: relative">
       <h1 style="font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(5rem, 13vw, 12rem); line-height: 0.82; letter-spacing: -0.03em; margin: 0; position: relative; z-index: 2; opacity: 0; transform: translateY(40px); animation: heroReveal 1.1s cubic-bezier(0.16,1,0.3,1) 0.15s forwards">
         <span style="display: block">Landon</span>
@@ -59,15 +77,15 @@ image-slot { display: block; width: 100%; height: 100%; }
     <div style="display: flex; gap: 4rem; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid #E7E5E4; max-width: 640px; opacity: 0; transform: translateY(20px); animation: heroReveal 0.9s cubic-bezier(0.16,1,0.3,1) 0.7s forwards">
       <div style="display: flex; flex-direction: column">
         <span style="font-family: 'Instrument Serif', Georgia, serif; font-size: 2.75rem; line-height: 1">40K+</span>
-        <span style="font-size: 0.8rem; color: #A8A29E; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.3rem">Followers</span>
+        <span style="font-size: 0.8rem; color: #78716C; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.3rem">Followers</span>
       </div>
       <div style="display: flex; flex-direction: column">
         <span style="font-family: 'Instrument Serif', Georgia, serif; font-size: 2.75rem; line-height: 1">160M+</span>
-        <span style="font-size: 0.8rem; color: #A8A29E; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.3rem">Views</span>
+        <span style="font-size: 0.8rem; color: #78716C; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.3rem">Views</span>
       </div>
       <div style="display: flex; flex-direction: column">
         <span style="font-family: 'Instrument Serif', Georgia, serif; font-size: 2.75rem; line-height: 1">16+</span>
-        <span style="font-size: 0.8rem; color: #A8A29E; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.3rem">Brand Partners</span>
+        <span style="font-size: 0.8rem; color: #78716C; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.3rem">Brand Partners</span>
       </div>
     </div>
   </div>
@@ -90,13 +108,13 @@ image-slot { display: block; width: 100%; height: 100%; }
 <section id="experience" data-screen-label="Selected Work" style="padding: 6rem 0 0; background: #F5F0EB">
   <div data-reveal style="display: flex; align-items: baseline; justify-content: space-between; padding: 0 3rem; margin-bottom: 3rem">
     <h2 style="font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(3rem, 6.5vw, 5.5rem); line-height: 1; margin: 0">Selected <span style="font-style: italic; color: #DC2626">Work</span></h2>
-    <p style="font-size: 0.95rem; color: #A8A29E; max-width: 300px; text-align: right; margin: 0">From content creation to brand strategy, here's what I've been building.</p>
+    <p style="font-size: 0.95rem; color: #78716C; max-width: 300px; text-align: right; margin: 0">From content creation to brand strategy, here's what I've been building.</p>
   </div>
 
   <a href="/pacsun" class="work-row" data-reveal style="display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 0; text-decoration: none; color: inherit; border-top: 1px solid #E0DAD2">
     <div style="padding: 4rem 3rem">
       <div style="display: flex; align-items: baseline; gap: 1.5rem">
-        <span style="font-family: 'Instrument Serif', Georgia, serif; font-size: 1.1rem; color: #A8A29E">01</span>
+        <span style="font-family: 'Instrument Serif', Georgia, serif; font-size: 1.1rem; color: #78716C">01</span>
         <div>
           <p style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.25em; color: #DC2626; margin: 0 0 0.75rem 0">Internship · Brand Creative Team</p>
           <h3 class="work-title" style="font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(2.2rem, 4.5vw, 3.8rem); line-height: 1; margin: 0 0 1rem 0; color: #1C1917">Pacsun</h3>
@@ -114,12 +132,12 @@ image-slot { display: block; width: 100%; height: 100%; }
   </a>
 
   <a href="/content-creation" class="work-row" data-reveal style="display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 0; text-decoration: none; color: inherit; border-top: 1px solid #E0DAD2">
-    <div style="height: 58vh; overflow: hidden; background: #0A0A0A">
-      <img class="work-img" src="images/Logo1.PNG" alt="Landon Dresses — content creation" style="width: 100%; height: 100%; object-fit: contain">
+    <div style="height: 58vh; overflow: hidden; background: #FAF8F5; display: flex; align-items: center; justify-content: center">
+      <img class="work-img" src="images/content-logo.png" alt="Landon Dresses — content creation" style="max-width: 100%; max-height: 100%; object-fit: contain">
     </div>
     <div style="padding: 4rem 3rem">
       <div style="display: flex; align-items: baseline; gap: 1.5rem">
-        <span style="font-family: 'Instrument Serif', Georgia, serif; font-size: 1.1rem; color: #A8A29E">02</span>
+        <span style="font-family: 'Instrument Serif', Georgia, serif; font-size: 1.1rem; color: #78716C">02</span>
         <div>
           <p style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.25em; color: #DC2626; margin: 0 0 0.75rem 0">@LandonDresses</p>
           <h3 class="work-title" style="font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(2.2rem, 4.5vw, 3.8rem); line-height: 1; margin: 0 0 1rem 0; color: #1C1917">Content Creation</h3>
@@ -136,7 +154,7 @@ image-slot { display: block; width: 100%; height: 100%; }
   <a href="/whit-education" class="work-row" data-reveal style="display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 0; text-decoration: none; color: inherit; border-top: 1px solid #E0DAD2">
     <div style="padding: 4rem 3rem">
       <div style="display: flex; align-items: baseline; gap: 1.5rem">
-        <span style="font-family: 'Instrument Serif', Georgia, serif; font-size: 1.1rem; color: #A8A29E">03</span>
+        <span style="font-family: 'Instrument Serif', Georgia, serif; font-size: 1.1rem; color: #78716C">03</span>
         <div>
           <p style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.25em; color: #DC2626; margin: 0 0 0.75rem 0">Edtech Startup</p>
           <h3 class="work-title" style="font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(2.2rem, 4.5vw, 3.8rem); line-height: 1; margin: 0 0 1rem 0; color: #1C1917">WHIT Education</h3>
@@ -159,7 +177,7 @@ image-slot { display: block; width: 100%; height: 100%; }
     </div>
     <div style="padding: 4rem 3rem">
       <div style="display: flex; align-items: baseline; gap: 1.5rem">
-        <span style="font-family: 'Instrument Serif', Georgia, serif; font-size: 1.1rem; color: #A8A29E">04</span>
+        <span style="font-family: 'Instrument Serif', Georgia, serif; font-size: 1.1rem; color: #78716C">04</span>
         <div>
           <p style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.25em; color: #DC2626; margin: 0 0 0.75rem 0">Collaborations</p>
           <h3 class="work-title" style="font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(2.2rem, 4.5vw, 3.8rem); line-height: 1; margin: 0 0 1rem 0; color: #1C1917">Brand Partnerships</h3>
@@ -176,7 +194,7 @@ image-slot { display: block; width: 100%; height: 100%; }
   <a href="/campus" class="work-row" data-reveal style="display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 0; text-decoration: none; color: inherit; border-top: 1px solid #E0DAD2; border-bottom: 1px solid #E0DAD2">
     <div style="padding: 4rem 3rem">
       <div style="display: flex; align-items: baseline; gap: 1.5rem">
-        <span style="font-family: 'Instrument Serif', Georgia, serif; font-size: 1.1rem; color: #A8A29E">05</span>
+        <span style="font-family: 'Instrument Serif', Georgia, serif; font-size: 1.1rem; color: #78716C">05</span>
         <div>
           <p style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.25em; color: #DC2626; margin: 0 0 0.75rem 0">Career Extracurriculars</p>
           <h3 class="work-title" style="font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(2.2rem, 4.5vw, 3.8rem); line-height: 1; margin: 0 0 1rem 0; color: #1C1917">Campus</h3>
@@ -203,7 +221,7 @@ image-slot { display: block; width: 100%; height: 100%; }
       </div>
       <div>
         <h3 style="font-size: 1rem; font-weight: 600; margin: 0 0 0.25rem 0; color: #1C1917">Microsoft Excel Associate</h3>
-        <p style="font-size: 0.875rem; color: #A8A29E; margin: 0">Microsoft Office Specialist</p>
+        <p style="font-size: 0.875rem; color: #78716C; margin: 0">Microsoft Office Specialist</p>
       </div>
     </a>
     <a href="https://www.credly.com/badges/19380a88-2d31-4aa6-afb1-ef27b621d360/public_url" target="_blank" rel="noopener noreferrer" style="background: #FFFFFF; border: 1px solid #E7E5E4; border-radius: 1rem; padding: 1.75rem; display: flex; align-items: center; gap: 1.25rem; text-decoration: none; transition: all 0.4s ease" style-hover="border-color: #DC2626; transform: translateY(-4px); box-shadow: 0 15px 40px -15px rgba(225,29,72,0.2)">
@@ -212,7 +230,7 @@ image-slot { display: block; width: 100%; height: 100%; }
       </div>
       <div>
         <h3 style="font-size: 1rem; font-weight: 600; margin: 0 0 0.25rem 0; color: #1C1917">Academic Applications of AI</h3>
-        <p style="font-size: 0.875rem; color: #A8A29E; margin: 0">San Diego State University</p>
+        <p style="font-size: 0.875rem; color: #78716C; margin: 0">San Diego State University</p>
       </div>
     </a>
   </div>
