@@ -3,6 +3,6 @@
   "framework": null,
   "buildCommand": null,
   "outputDirectory": null,
-  "cleanUrls": false,
+  "cleanUrls": true,
   "trailingSlash": false
 }
