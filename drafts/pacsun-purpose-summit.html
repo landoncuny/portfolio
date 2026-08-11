@@ -1,0 +1,116 @@
+<!--
+  Pacsun Purpose Summit — REMOVED FROM site/pacsun.html, KEPT HERE FOR RESTORE.
+  This folder is outside site/ so it is never deployed.
+
+  Restore trigger phrase from Landon: "Purpose Summit Push"
+
+  How to restore:
+   1. In site/pacsun.html, Featured Projects grid: put BLOCK A back as the third
+      <a> card (after the "Bresee Backpack Day" card), and change the grid back to
+      grid-template-columns: repeat(3, 1fr); max-width: 1100px.
+   2. Put BLOCK B back between the "Project 2 Results" section and the
+      <section id="contact"> section.
+   3. Restore the meta description on lines 6 and 10 to end with
+      "activations, community events, and the Purpose Summit."
+   The pacsun-feat-3 / pacsun-p3-* photos were left untouched in
+   site/.image-slots.state.json, so they come back automatically.
+-->
+
+<!-- ===== BLOCK A — Featured Projects card ===== -->
+    <a href="#project-3" class="feat-card" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; align-items: center; gap: 1.25rem">
+      <div style="width: 100%; height: 240px; overflow: hidden; border: 1px solid #E0DAD2; background: #F5F0EB; border-radius: 16px; position: relative">
+        <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="pacsun-feat-3" placeholder="Purpose Summit graphic" shape="rounded" radius="16" style="width: 100%; height: 100%; display: block" hint-size="100%,240px"></x-import>
+        <span style="position: absolute; top: 12px; left: 12px; z-index: 2; background: #DC2626; color: #FAF8F5; padding: 0.3rem 0.7rem; border-radius: 100px; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; white-space: nowrap">Upcoming · Sept 24</span>
+      </div>
+      <span style="font-weight: 700; font-size: 1.05rem">Pacsun Purpose Summit</span>
+    </a>
+
+<!-- ===== BLOCK B — Project 3 sections (Challenge / Process / Results) ===== -->
+<section id="project-3" data-screen-label="Project 3 Challenge" style="padding: 7rem 3rem 5rem; border-top: 1px solid #E0DAD2">
+  <div style="max-width: 1000px; margin: 0 auto">
+    <div data-reveal style="margin: 0 0 1.25rem 0">
+      <span style="display: inline-flex; align-items: center; gap: 0.5rem; background: #DC2626; color: #FAF8F5; padding: 0.4rem 1rem; border-radius: 100px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em">
+        <span style="width: 6px; height: 6px; background: #FAF8F5; border-radius: 50%"></span>
+        Upcoming · Sept 24, 2026
+      </span>
+    </div>
+    <h2 data-reveal style="font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1; margin: 0 0 1.5rem 0">Project 3: <span style="font-style: italic; color: #DC2626">Pacsun Purpose Summit</span></h2>
+    <div data-reveal>
+      <p style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.25em; color: #78716C; margin: 0 0 0.5rem 0">Challenge</p>
+      <p style="font-size: 1.05rem; color: #57534E; line-height: 1.8; max-width: 820px; margin: 0 0 3rem 0">
+        The Pacsun Purpose Summit gathers 300+ leaders and creators across fashion, media, wellness, sports, and entertainment for a day of programming built around the annual Youth Report by Pacsun — grounded in insights from 6,000+ Gen Z and Gen Alpha voices. Returning on September 24, 2026, the summit will unpack the new report and its findings (including AI) across thought-provoking panels, immersive brand activations, and networking, while opening the day to partners for the first time.
+      </p>
+    </div>
+    <div data-reveal style="max-width: 760px; margin: 0 auto; height: 420px">
+      <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="pacsun-p3-hero" placeholder="Drop a Purpose Summit photo" shape="rect" style="width: 100%; height: 100%; display: block" hint-size="100%,420px"></x-import>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="Project 3 Process" style="padding: 5rem 3rem; border-top: 1px solid #E0DAD2">
+  <div style="max-width: 1000px; margin: 0 auto">
+    <h2 data-reveal style="font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(2rem, 4vw, 3rem); margin: 0 0 0.5rem 0">Building the Purpose Summit</h2>
+    <p data-reveal style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.25em; color: #78716C; margin: 0 0 3rem 0">Process</p>
+    <div data-reveal style="display: grid; grid-template-columns: 320px 1fr; gap: 3.5rem; align-items: start">
+      <div style="display: flex; flex-direction: column; gap: 2rem">
+        <div>
+          <span style="display: inline-block; border: 1px solid #DC2626; color: #DC2626; padding: 0.3rem 0.9rem; border-radius: 100px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem">1. Research</span>
+          <p style="font-size: 0.95rem; color: #57534E; line-height: 1.7; margin: 0">I performed site visits to multiple venues, partnering with management for LACMA, the Academy Museum of Motion Pictures, and Rolling Green. I also researched brands that could potentially represent the AI moment and developed parameters and selections for the Youth 25 List.</p>
+        </div>
+        <div>
+          <span style="display: inline-block; border: 1px solid #DC2626; color: #DC2626; padding: 0.3rem 0.9rem; border-radius: 100px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem">2. Coordination</span>
+          <p style="font-size: 0.95rem; color: #57534E; line-height: 1.7; margin: 0">I helped coordinate the day's programming — panels, interactive activations, and networking moments. I aligned speakers, schedules, and logistics across teams. I also coordinated catering details, including a breakfast, lunch, and cocktail bar, with the venue and the business partners in attendance.</p>
+        </div>
+        <div>
+          <span style="display: inline-block; border: 1px solid #DC2626; color: #DC2626; padding: 0.3rem 0.9rem; border-radius: 100px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem">3. Reachout</span>
+          <p style="font-size: 0.95rem; color: #57534E; line-height: 1.7; margin: 0">I supported outreach to partners and creators, walking them through partnership tiers — from Supporting and Moment levels up to Featured, Platform, and Presenting — to secure sponsorships, activation footprints, and main-stage moments.</p>
+        </div>
+        <div>
+          <span style="display: inline-block; border: 1px solid #DC2626; color: #DC2626; padding: 0.3rem 0.9rem; border-radius: 100px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem">4. Execution</span>
+          <p style="font-size: 0.95rem; color: #57534E; line-height: 1.7; margin: 0">On the day, I will help bring the summit to life — supporting panel transitions, partner activations, the step-and-repeat photo moment, and gift-bag logistics to keep the experience seamless for leaders and creators.</p>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 2rem">
+        <div style="height: 300px; border: 1px solid #E0DAD2; background: #F5F0EB">
+          <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="pacsun-p3-process-2" placeholder="Drop a summit photo" shape="rect" style="width: 100%; height: 100%; display: block" hint-size="100%,300px"></x-import>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem">
+          <div style="height: 300px; border: 1px solid #E0DAD2; background: #F5F0EB">
+            <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="pacsun-p3-process-1a" placeholder="Drop a planning photo" shape="rect" style="width: 100%; height: 100%; display: block" hint-size="100%,300px"></x-import>
+          </div>
+          <div style="height: 300px; border: 1px solid #E0DAD2; background: #F5F0EB">
+            <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="pacsun-p3-process-1b" placeholder="Drop a planning photo" shape="rect" style="width: 100%; height: 100%; display: block" hint-size="100%,300px"></x-import>
+          </div>
+        </div>
+        <div style="height: 300px; border: 1px solid #E0DAD2; background: #F5F0EB">
+          <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="pacsun-p3-process-3" placeholder="Drop a summit photo" shape="rect" style="width: 100%; height: 100%; display: block" hint-size="100%,300px"></x-import>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="Project 3 Results" style="padding: 5rem 3rem 7rem; border-top: 1px solid #E0DAD2; background: #F5F0EB">
+  <div style="max-width: 1000px; margin: 0 auto">
+    <h2 data-reveal style="font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(2rem, 4vw, 3rem); margin: 0 0 0.5rem 0">What the Summit Will Deliver</h2>
+    <div data-reveal>
+      <p style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.25em; color: #78716C; margin: 0 0 0.5rem 0">Goals</p>
+      <p style="font-size: 1.05rem; color: #57534E; line-height: 1.8; max-width: 820px; margin: 0 0 3.5rem 0">
+        The Pacsun Purpose Summit will bring 300+ industry leaders and creators together to release the 2026 Youth Report and explore what its findings mean for the next generation. Through panels, immersive brand activations, and partner engagement, the summit will reinforce Pacsun's purpose-driven mission and give partners a new way to connect with the voices shaping youth culture.
+      </p>
+    </div>
+    <p data-reveal style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.25em; color: #78716C; margin: 0 0 2rem 0; text-align: center">Benchmarks from the 2025 Summit</p>
+    <div data-reveal style="display: flex; justify-content: center; gap: 6rem; text-align: center">
+      <div>
+        <p style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; color: #78716C; margin: 0 0 0.5rem 0">Leaders Convened</p>
+        <p style="font-family: 'Instrument Serif', Georgia, serif; font-size: 4rem; line-height: 1; color: #DC2626; margin: 0 0 0.75rem 0">300+</p>
+        <p style="font-size: 0.9rem; color: #57534E; margin: 0; max-width: 200px">Leaders and creators across fashion, media, sports, and wellness in 2025</p>
+      </div>
+      <div>
+        <p style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; color: #78716C; margin: 0 0 0.5rem 0">Report Downloads</p>
+        <p style="font-family: 'Instrument Serif', Georgia, serif; font-size: 4rem; line-height: 1; color: #DC2626; margin: 0 0 0.75rem 0">25K+</p>
+        <p style="font-size: 0.9rem; color: #57534E; margin: 0; max-width: 200px">Downloads of the 2025 Youth Report built on 6,000+ Gen Z &amp; Gen Alpha voices</p>
+      </div>
+    </div>
+  </div>
+</section>
